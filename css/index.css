@@ -1,0 +1,158 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 960px;
+  width: 100%;
+  margin: auto;
+  max-width: 1400px;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.img__header {
+  position: absolute;
+  width: 100%;
+  height: 70%;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-size: cover;
+  background-position: center;
+}
+
+/* .img__header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: -1;
+} */
+
+.bg__overlay {
+  position: absolute;
+  width: 100%;
+  height: 70%;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+h1 {
+  font-family: "Anton", "open-sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  position: absolute;
+  z-index: 2;
+  top: 22%;
+  left: 5%;
+  font-size: 1.7rem;
+  color: white;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-family: "Anton", "open-sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 2rem;
+  color: #FFD15B;
+  line-height: 1.5em;
+  margin-bottom: 20px;
+  display: flex;
+  align-content: center;
+  width: 62%;
+}
+
+.header__search {
+  z-index: 1;
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  margin-top: 6rem;
+  height: auto;
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header__search input {
+  width: 100%;
+  height: 70px;
+  border: none;
+  border-radius: 10px;
+  padding: 0 1rem;
+  font-size: 1.5rem;
+  outline: none;
+}
+
+.filter__container {
+  position: absolute;
+  z-index: 1;
+  bottom: 46px;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 100%;
+  height: 100px;
+  background-color: #C6C6C6;
+  display: flex;
+  justify-content: center;
+}
+
+input[type="text"] {
+  font-size: 1rem;
+  padding-left: 40px;
+}
+
+.input__container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.icon__search-box {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  position: absolute;
+  background-color: black;
+  top: 12px;
+  right: 10px;
+  z-index: 3;
+}
+
+.icon__search-box svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.5rem;
+  z-index: 3;
+  fill: white;
+}
+
+main {
+  width: 100%;
+  height: 800px;
+  background-color: #FFD15B;
+}
