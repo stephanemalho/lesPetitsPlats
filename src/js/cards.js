@@ -1,4 +1,4 @@
-import { recipes } from "../data/recipes.js";
+
 
 function createRecipeCard(recipe) {
   const recipeCard = document.createElement("figure");

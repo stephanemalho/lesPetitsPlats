@@ -156,6 +156,12 @@ main {
   align-items: center;
 }
 
+.recipes-header {
+  position: absolute;
+  right : 40px;
+  top: 45%;
+} 
+
 /* Style général des select box */
 .select-container {
   position: relative;
@@ -182,14 +188,14 @@ main {
 
 /* Style des inputs de recherche */
 .select-container .search-input {
-    position: absolute;
-    top: 100%;
-    left: 10px;
-    width: 80%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    display: none;
-    z-index: 1;
+  position: absolute;
+  top: 80%;
+  left: 10px;
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  display: none;
+  z-index: 1;
 }
 
 /* Style des listes d'options */
@@ -297,4 +303,25 @@ main {
   justify-items: flex-end;
 }
 
-/* Ajoutez d'autres règles de style selon vos besoins */
+.filter-selected_box {
+  height: 150px;
+  width: 100%;
+  background-color: #f60404ef;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+}
+
+.selected-filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  background-color: #FFD15B;
+  width: 100Px;
+  height: 60px;
+  border-radius: 5px
+}

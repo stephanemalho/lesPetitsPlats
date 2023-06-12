@@ -1,11 +1,9 @@
 import './css/style.css';
 import recipes from './data/recipes.js';
-import { afficherSelectBox } from './js/selects.js';
-import { renderRecipes } from './js/cards.js';
+import { afficherSelectBox, getTotalRecipes} from './js/selects.js';
+import { hiddeSelectBox } from './js/utils/utils.js';
 
 console.log('Hello Webpack!');
 afficherSelectBox();
-renderRecipes(recipes);
-
-
-
+hiddeSelectBox();
+getTotalRecipes(recipes);
