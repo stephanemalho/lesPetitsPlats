@@ -24,6 +24,7 @@ function createRecipeCard(recipe) {
 
   recipeCard.innerHTML = `
       <figcaption class="card__image-caption">
+        <span class="timer-info">${recipe.time} min</span>
         <img src="${recipe.image}" alt="${recipe.name}" class="card__image" />
       </figcaption>
       <article class="card__content">
@@ -42,7 +43,8 @@ function createRecipeCard(recipe) {
 
   descriptionParagraph.addEventListener("click", () => {
     if (descriptionParagraph.style.height === "75px") {
-      descriptionParagraph.style.height = "auto"; 
+      descriptionParagraph.style.height = "375px"; 
+      descriptionParagraph.style.width = "90%";
       descriptionParagraph.style.position = "absolute";
       descriptionParagraph.style.backgroundColor = "white";
     } else {

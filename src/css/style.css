@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
 header {
@@ -64,7 +65,7 @@ h2 {
   font-style: normal;
   font-weight: 400;
   font-size: 2rem;
-  color: #FFD15B;
+  color: #ffd15b;
   line-height: 1.5em;
   margin-bottom: 20px;
   display: flex;
@@ -103,7 +104,7 @@ h2 {
   transform: translate(-50%, 50%);
   width: 100%;
   height: 100px;
-  background-color: #C6C6C6;
+  background-color: #c6c6c6;
   display: flex;
   justify-content: center;
 }
@@ -147,6 +148,7 @@ main {
   max-width: 1400px;
   height: 800px;
   margin: auto;
+  font-family: "Manrope", sans-serif;
 }
 
 .filter__container {
@@ -158,9 +160,9 @@ main {
 
 .recipes-header {
   position: absolute;
-  right : 40px;
+  right: 40px;
   top: 45%;
-} 
+}
 
 /* Style général des select box */
 .select-container {
@@ -179,6 +181,7 @@ main {
   width: 195px;
   height: 56px;
   text-align: left;
+  font-family: "Manrope", sans-serif;
 }
 
 .select-container button:after {
@@ -212,14 +215,22 @@ main {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: none;
   margin: 0;
-  padding: 50px 0 5px 5px;
+  padding: 50px 0 5px 0;
   list-style: none;
+  font-family: "Manrope", sans-serif;
 }
 
 /* Style des options */
 .select-container .options-container li {
   padding: 8px 12px;
   cursor: pointer;
+}
+
+/* li selected background color yellow */
+
+.select-container .options-container li:hover {
+  background-color: #ffd15b;
+  margin: 0;
 }
 
 /* Style pour afficher la liste d'options lorsqu'une select box est ouverte */
@@ -233,15 +244,29 @@ main {
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  margin-top: 50px;
+  background-color: #e5e5e5;
+  height: auto;
+}
+
+.card__image-caption {
+  position: relative;
+}
+
+.timer-info {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ffd15b;
+  border-radius: 20px;
+  padding: 5px 10px;
 }
 
 .card__image-container {
-    width: 360px;
-    height: 730px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    margin-bottom: 60px;
+  width: 360px;
+  height: 730px;
+  background-color: white;
+  border-radius: 20px;
+  margin-bottom: 60px;
 }
 
 .card__image-container img {
@@ -263,21 +288,43 @@ main {
 
 .card__title {
   position: absolute;
-  top: 10px ; 
-  font-size: 20px;
-  margin-bottom: 5px;
+  top: 0px;
+  margin-bottom: 9px;
   color: black;
+  line-height: 1;
+  font-family: "Anton";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
 }
 
-.card__title__h3 {
+h3 {
   margin-top: 20px;
+  color: #7a7a7a;
+  font-family: "Manrope", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
 }
 
 .card__description {
   height: 75px; /* Hauteur initiale */
   overflow: hidden; /* Cacher le contenu dépassant de la hauteur spécifiée */
-  transition: height 0.3s; /* Ajouter une transition animée lors du changement de hauteur */
+  transition: height 0.6s ease-in-out; /* Ajouter une transition animée lors du changement de hauteur */
   cursor: pointer; /* Ajouter un curseur pointeur pour indiquer qu'il est cliquable */
+  text-overflow: ellipsis;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+
+  /* Black */
+  color: #1b1b1b;
 }
 
 .card__tags {
@@ -285,33 +332,52 @@ main {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
   list-style: none;
+  height: 215px;
 }
+
 #card-tag {
   display: none;
 }
 
 .card__tags li {
-  font-size: 14px;
-  color: black;
   margin: 10px 30px 10px 0;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   width: 39%;
   justify-items: flex-end;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+
+  /* Black */
+  color: #1b1b1b;
+}
+
+.card__tags li span {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+
+  /* Grey */
+  color: #7a7a7a;
 }
 
 .filter-selected_box {
-  height: 150px;
-  width: 100%;
-  background-color: #f60404ef;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 40px;
+    height: 150px;
+    /* width: 84%; */
+    background-color: #e5e5e5;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 40px;
+    gap: 52px;
 }
 
 .selected-filter {
@@ -320,8 +386,30 @@ main {
   justify-content: space-around;
   align-items: center;
   align-content: center;
-  background-color: #FFD15B;
-  width: 100Px;
+  background-color: #ffd15b;
+  width: 170px;
   height: 60px;
-  border-radius: 5px
+  border-radius: 10px;
 }
+
+.remove-button {
+  background-color: #ffd15b;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.recipes-header {
+  font-family: "Manrope", sans-serif;
+  color: black;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 21px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
