@@ -1,8 +1,8 @@
-html,
-body {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 
 header {
@@ -52,7 +52,7 @@ h1 {
   font-weight: 400;
   position: absolute;
   z-index: 7;
-  top: 20%;
+  top: 22%;
   left: 2%;
   font-size: 1.7rem;
   color: white;
@@ -65,7 +65,7 @@ h2 {
   font-style: normal;
   font-weight: 400;
   font-size: 2rem;
-  color: #FFD15B;
+  color: #ffd15b;
   line-height: 1.5em;
   margin-bottom: 20px;
   display: flex;
@@ -104,7 +104,7 @@ h2 {
   transform: translate(-50%, 50%);
   width: 100%;
   height: 100px;
-  background-color: #C6C6C6;
+  background-color: #c6c6c6;
   display: flex;
   justify-content: center;
 }
@@ -148,5 +148,268 @@ main {
   max-width: 1400px;
   height: 800px;
   margin: auto;
-  background-color: #FFD15B;
+  font-family: "Manrope", sans-serif;
 }
+
+.filter__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+}
+
+.recipes-header {
+  position: absolute;
+  right: 40px;
+  top: 45%;
+}
+
+/* Style général des select box */
+.select-container {
+  position: relative;
+  display: inline-block;
+  margin-left: 33px;
+}
+
+/* Style des boutons des select box */
+.select-container button {
+  padding: 8px 12px;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 195px;
+  height: 56px;
+  text-align: left;
+  font-family: "Manrope", sans-serif;
+}
+
+.select-container button:after {
+  outline: none;
+  border-bottom: none;
+}
+
+/* Style des inputs de recherche */
+.select-container .search-input {
+  position: absolute;
+  top: 80%;
+  left: 10px;
+  width: 90%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  display: none;
+  z-index: 1;
+}
+
+/* Style des listes d'options */
+.select-container .options-container {
+  position: absolute;
+  top: 46px;
+  left: 0;
+  width: 195px;
+  max-height: 200px;
+  overflow-y: auto;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: none;
+  margin: 0;
+  padding: 50px 0 5px 0;
+  list-style: none;
+  font-family: "Manrope", sans-serif;
+}
+
+/* Style des options */
+.select-container .options-container li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+/* li selected background color yellow */
+
+.select-container .options-container li:hover {
+  background-color: #ffd15b;
+  margin: 0;
+}
+
+/* Style pour afficher la liste d'options lorsqu'une select box est ouverte */
+.select-container.open .search-input,
+.select-container.open .options-container {
+  display: block;
+}
+
+.cards__container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #e5e5e5;
+  height: auto;
+}
+
+.card__image-caption {
+  position: relative;
+}
+
+.timer-info {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ffd15b;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+.card__image-container {
+  width: 360px;
+  height: 730px;
+  background-color: white;
+  border-radius: 20px;
+  margin-bottom: 60px;
+}
+
+.card__image-container img {
+  width: 100%;
+  height: 253px;
+  object-fit: cover;
+  border-radius: 20px 20px 0 0;
+  margin-bottom: 10px;
+}
+
+.card__content {
+  position: relative;
+  height: 485px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.card__title {
+  position: absolute;
+  top: 0px;
+  margin-bottom: 9px;
+  color: black;
+  line-height: 1;
+  font-family: "Anton";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+h3 {
+  margin-top: 20px;
+  color: #7a7a7a;
+  font-family: "Manrope", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.card__description {
+  height: 75px; /* Hauteur initiale */
+  overflow: hidden; /* Cacher le contenu dépassant de la hauteur spécifiée */
+  transition: height 0.6s ease-in-out; /* Ajouter une transition animée lors du changement de hauteur */
+  cursor: pointer; /* Ajouter un curseur pointeur pour indiquer qu'il est cliquable */
+  text-overflow: ellipsis;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+
+  /* Black */
+  color: #1b1b1b;
+}
+
+.card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  list-style: none;
+  height: 215px;
+}
+
+#card-tag {
+  display: none;
+}
+
+.card__tags li {
+  margin: 10px 30px 10px 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 39%;
+  justify-items: flex-end;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+
+  /* Black */
+  color: #1b1b1b;
+}
+
+.card__tags li span {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19px;
+
+  /* Grey */
+  color: #7a7a7a;
+}
+
+.filter-selected_box {
+    height: 150px;
+    /* width: 84%; */
+    background-color: #e5e5e5;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 40px;
+    gap: 52px;
+}
+
+.selected-filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  background-color: #ffd15b;
+  width: 170px;
+  height: 60px;
+  border-radius: 10px;
+}
+
+.remove-button {
+  background-color: #ffd15b;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.recipes-header {
+  font-family: "Manrope", sans-serif;
+  color: black;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 21px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
