@@ -4,6 +4,11 @@ import { renderRecipes } from "./cards.js";
 let selectedIngredients = [];
 let selectedUstensils = [];
 let selectedAppliance = [];
+let selectedDescription = [];
+
+const searchInput = document.getElementById('search');
+// Écouter l'événement d'entrée utilisateur dans l'input
+searchInput.addEventListener('input', filterRecipes);
 
 // créer les select box
 function createSelectBox(title, options) {
@@ -88,12 +93,8 @@ function getApplianceOptions() {
   recipes.forEach(function (recipe) {
     options.push(recipe.appliance);
   });
-  console.log(options);
   const setOptions = new Set(options);
-  console.log(setOptions);
-
   const arrayOptions = Array.from(setOptions);
-  console.log(arrayOptions);
   return arrayOptions;
 }
 
@@ -275,3 +276,72 @@ function removeSelectedFilter(label) {
   applyFilters(); // Appliquer les filtres
 }
 
+function filterRecipes() {
+  // Récupérer la valeur saisie par l'utilisateur
+  const searchText = searchInput.value.toLowerCase();
+
+  // Filtrer les recettes en fonction de la valeur saisie
+  const filteredRecipes = recipes.filter((recette) => {
+    // Vérifier si la valeur saisie correspond à n'importe quelle propriété de la recette
+    const propertiesToCheck = [
+      "name", // Nom de la recette
+      "appliance", // Appareil de la recette
+      "ustensils", // Ustensiles de la recette
+      "ingredients", // Ingrédients de la recette
+      "description"
+    ];
+
+    return propertiesToCheck.some((property) => {
+      if (typeof recette[property] === "string") {
+        // Pour les propriétés de type chaîne de caractères (name, appliance, description)
+        return recette[property].toLowerCase().includes(searchText);
+      } else if (Array.isArray(recette[property])) {
+        // Pour les propriétés de type tableau (ustensils, ingredients)
+        return recette[property].some((item) =>
+          typeof item === "string" && item.toLowerCase().includes(searchText)
+        );
+      }
+      return false;
+    });
+  });
+
+  // Appliquer les filtres supplémentaires
+  applyGlobalFilters(filteredRecipes);
+}
+
+function applyGlobalFilters(recipes) {
+  let filteredRecipes = recipes.filter(function (recipe) {
+    // Vérifier si la recette correspond aux filtres d'ingrédients, d'ustensiles et d'appareil sélectionnés
+    let ingredientsMatch = true;
+    let ustensilsMatch = true;
+    let applianceMatch = true;
+    let descriptionMatch = true;
+
+    if (selectedIngredients.length > 0) {
+      ingredientsMatch = selectedIngredients.some(function (selectedIngredient) {
+        return recipe.ingredients.some(function (ingredient) {
+          return ingredient.ingredient.toLowerCase().includes(selectedIngredient);
+        });
+      });
+    }
+
+    if (selectedUstensils.length > 0) {
+      ustensilsMatch = selectedUstensils.every(function (selectedUstensil) {
+        return recipe.ustensils.includes(selectedUstensil);
+      });
+    }
+
+    if (selectedAppliance.length > 0) {
+      applianceMatch = selectedAppliance.includes(recipe.appliance);
+    }
+
+    if (selectedDescription.length > 0) {
+      descriptionMatch = selectedDescription.includes(recipe.description);
+    }
+
+    return ingredientsMatch && ustensilsMatch && applianceMatch && descriptionMatch;
+  });
+
+  renderRecipes(filteredRecipes);
+  getTotalRecipes(filteredRecipes);
+}

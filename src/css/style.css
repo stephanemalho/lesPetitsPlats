@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
 }
 
 header {
@@ -22,7 +21,6 @@ header {
 .bg__image {
   background: url(../assets/photos/Recette02.jpg);
   background-size: cover;
-
   background-position: center;
   background-repeat: no-repeat;
   width: 100%;
@@ -125,6 +123,8 @@ input[type="text"] {
   width: 50px;
   height: 50px;
   border-radius: 10px;
+  cursor: pointer;
+  border: none;
   position: absolute;
   background-color: black;
   top: 12px;
@@ -369,15 +369,15 @@ h3 {
 }
 
 .filter-selected_box {
-    height: 150px;
-    /* width: 84%; */
-    background-color: #e5e5e5;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 0 40px;
-    gap: 52px;
+  height: 150px;
+  /* width: 84%; */
+  background-color: #e5e5e5;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 40px;
+  gap: 52px;
 }
 
 .selected-filter {
@@ -387,6 +387,9 @@ h3 {
   align-items: center;
   align-content: center;
   background-color: #ffd15b;
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
   width: 170px;
   height: 60px;
   border-radius: 10px;
@@ -412,4 +415,3 @@ h3 {
   text-transform: uppercase;
   margin: 0;
 }
-

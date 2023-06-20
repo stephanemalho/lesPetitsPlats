@@ -1,3 +1,5 @@
+import recipes from "../../data/recipes";
+
 export function hiddeSelectBox() {
   document.addEventListener('click', function (event) {
     var selectContainers = document.querySelectorAll('.select-container');
@@ -10,3 +12,4 @@ export function hiddeSelectBox() {
     });
   });
 }
+
