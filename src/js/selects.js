@@ -12,15 +12,15 @@ searchInput.addEventListener('input', filterRecipes);
 
 // créer les select box
 function createSelectBox(title, options) {
-  var selectContainer = document.createElement("div");
+  const selectContainer = document.createElement("div");
   selectContainer.classList.add("select-container");
-  var button = document.createElement("button");
+  const button = document.createElement("button");
   button.textContent = title;
   button.addEventListener("click", function () {
     toggleOptions(this);
   });
-  var label = document.createElement("label");
-  var input = document.createElement("input");
+  const label = document.createElement("label");
+  const input = document.createElement("input");
   input.classList.add("search-input");
   input.setAttribute("type", "text");
   input.setAttribute("placeholder", "Rechercher...");
@@ -28,11 +28,11 @@ function createSelectBox(title, options) {
   label.appendChild(input);
   label.id = input.id;
 
-  var optionsContainer = document.createElement("ul");
+  const optionsContainer = document.createElement("ul");
   optionsContainer.classList.add("options-container");
 
   options.forEach(function (option) {
-    var optionElement = document.createElement("li");
+    const optionElement = document.createElement("li");
     optionElement.classList.add("option");
     optionElement.textContent = option;
     optionsContainer.appendChild(optionElement);
@@ -43,7 +43,7 @@ function createSelectBox(title, options) {
   console.log(optionElements);
 
   input.addEventListener("input", function () {
-    const updatedOptionElements = optionsContainer.querySelectorAll(".option");
+    const updatedOptionElements = selectContainer.querySelectorAll(".option");
     filterOptions(this, updatedOptionElements);
   });
 
@@ -58,19 +58,14 @@ function createSelectBox(title, options) {
 function filterOptions(input, optionElements) {
   const filterValue = input.value.toLowerCase();
 
-  optionElements.forEach(function (optionElement) {
+  optionElements.forEach(optionElement => {
     const optionText = optionElement.textContent.toLowerCase();
     const optionMatches = optionText.includes(filterValue);
 
-    if (filterValue === "" || optionMatches) {
-      optionElement.style.display = "block";
-      console.log("block" + optionElement);
-    } else {
-      optionElement.style.display = "none";
-      console.log("none" + optionElement);
-    }
+    optionElement.style.display = (filterValue === "" || optionMatches) ? "block" : "none"; // operateur ternaire
   });
 }
+
 
 // récupérer les options pour chaque select
 function getIngredientsOptions() {
