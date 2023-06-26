@@ -77,13 +77,18 @@ function getIngredientsOptions() {
 
   recipes.forEach(function (recipe) {
     recipe.ingredients.forEach(function (ingredient) {
-      options.push(ingredient.ingredient); // Conversion en minuscules
+      options.push(ingredient.ingredient.toLowerCase());
     });
   });
-  const setOptions = new Set(options);
-  const arrayOptions = Array.from(setOptions);
 
-  return arrayOptions;
+  var uniqueOptions = [];
+  options.forEach(function (option) {
+    if (!uniqueOptions.includes(option)) {
+      uniqueOptions.push(option);
+    }
+  });
+
+  return uniqueOptions;
 }
 
 function getApplianceOptions() {
