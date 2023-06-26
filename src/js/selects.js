@@ -58,18 +58,17 @@ function createSelectBox(title, options) {
 function filterOptions(input, optionElements) {
   const filterValue = input.value.toLowerCase();
 
-  optionElements.forEach(function (optionElement) {
-    const optionText = optionElement.textContent.toLowerCase();
-    const optionMatches = optionText.includes(filterValue);
+  for (let i = 0; i < optionElements.length; i++) {
+    var optionElement = optionElements[i];
+    var optionText = optionElement.textContent.toLowerCase();
+    var optionMatches = optionText.includes(filterValue);
 
     if (filterValue === "" || optionMatches) {
       optionElement.style.display = "block";
-      console.log("block" + optionElement);
     } else {
       optionElement.style.display = "none";
-      console.log("none" + optionElement);
     }
-  });
+  }
 }
 
 // récupérer les options pour chaque select
