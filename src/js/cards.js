@@ -2,10 +2,10 @@ function createRecipeCard(recipe) {
   var recipeCard = document.createElement("figure");
   recipeCard.classList.add("card__image-container");
 
-  var ingredientsList = document.createElement("ul");
-  ingredientsList.classList.add("card__tags");
+  var ingredientsList = document.createElement("ul"); // createElement moins lisible que innerHTML
+  ingredientsList.classList.add("card__tags"); // ajoute d'une ligne par class
 
-  for (var i = 0; i < recipe.ingredients.length; i++) {
+  for (var i = 0; i < recipe.ingredients.length; i++) { // boucle for moins lisible que forEach
     var ingredient = recipe.ingredients[i];
 
     var ingredientItem = document.createElement("li");
@@ -67,7 +67,7 @@ function createRecipeCard(recipe) {
   var ingredientsHeading = document.createElement("h3");
   ingredientsHeading.textContent = "Ingrédients";
 
-  cardContent.appendChild(cardTitle);
+  cardContent.appendChild(cardTitle); // appendchild moins lisible que template string
   cardContent.appendChild(cardTitleH3);
   cardContent.appendChild(cardDescription);
   cardContent.appendChild(ingredientsHeading);
