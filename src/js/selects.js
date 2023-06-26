@@ -66,37 +66,33 @@ function filterOptions(input, optionElements) {
   });
 }
 
-
 // récupérer les options pour chaque select
-function getIngredientsOptions() { // flatMap copie les éléments d'un tableau dans un nouveau tableau
-  const options = recipes.flatMap(recipe => recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase()));
-  const uniqueOptions = [...new Set(options)]; // Set permet de supprimer les doublons
-
-  return uniqueOptions;
-}
-
-function getApplianceOptions() {
-  var options = [];
+function getIngredientsOptions() {
+  const options = [];
 
   recipes.forEach(function (recipe) {
-    options.push(recipe.appliance);
-  });
-  const setOptions = new Set(options);
-  const arrayOptions = Array.from(setOptions);
-  return arrayOptions;
-}
-
-function getUstensilsOptions() {
-  var options = [];
-
-  recipes.forEach(function (recipe) {
-    recipe.ustensils.forEach(function (ustensil) {
-      options.push(ustensil);
+    recipe.ingredients.forEach(function (ingredient) {
+      options.push(ingredient.ingredient); // Conversion en minuscules
     });
   });
   const setOptions = new Set(options);
   const arrayOptions = Array.from(setOptions);
+
   return arrayOptions;
+}
+
+function getApplianceOptions() {
+  const options = recipes.map(recipe => recipe.appliance);
+  const uniqueOptions = [...new Set(options)];
+
+  return uniqueOptions;
+}
+
+function getUstensilsOptions() {
+  const options = recipes.map(recipe => recipe.ustensils);
+  const uniqueOptions = [...new Set(options)];
+
+  return uniqueOptions;
 }
 
 export function getTotalRecipes(recipes) {
