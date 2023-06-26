@@ -3,20 +3,7 @@ function createRecipeCard(recipe) {
   const recipeCard = document.createElement("figure");
   recipeCard.classList.add("card__image-container");
 
-  const ingredientsList = recipe.ingredients
-    .map((ingredient) => {
-      let ingredientText = ingredient.ingredient;
-      if (ingredient.quantity) {
-        ingredientText += `: <span>${ingredient.quantity}`;
-        if (ingredient.unit) {
-          ingredientText += ` ${ingredient.unit}</span>`;
-        } else {
-          ingredientText += "</span>";
-        }
-      }
-      return `<li>${ingredientText}</li>`;
-    })
-    .join("");
+  const ingredientsList = displayIngredientLists(recipe);
 
   recipeCard.innerHTML = `
       <figcaption class="card__image-caption">
@@ -38,6 +25,23 @@ function createRecipeCard(recipe) {
   displayDescription(recipeCard);
 
   return recipeCard;
+}
+
+function displayIngredientLists(recipe) {
+  return recipe.ingredients
+    .map((ingredient) => {
+      let ingredientText = ingredient.ingredient;
+      if (ingredient.quantity) {
+        ingredientText += `: <span>${ingredient.quantity}`;
+        if (ingredient.unit) {
+          ingredientText += ` ${ingredient.unit}</span>`;
+        } else {
+          ingredientText += "</span>";
+        }
+      }
+      return `<li>${ingredientText}</li>`;
+    })
+    .join("");
 }
 
 function displayDescription(recipeCard) {
