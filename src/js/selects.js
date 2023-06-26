@@ -68,18 +68,11 @@ function filterOptions(input, optionElements) {
 
 
 // récupérer les options pour chaque select
-function getIngredientsOptions() {
-  var options = [];
+function getIngredientsOptions() { // flatMap copie les éléments d'un tableau dans un nouveau tableau
+  const options = recipes.flatMap(recipe => recipe.ingredients.map(ingredient => ingredient.ingredient.toLowerCase()));
+  const uniqueOptions = [...new Set(options)]; // Set permet de supprimer les doublons
 
-  recipes.forEach(function (recipe) {
-    recipe.ingredients.forEach(function (ingredient) {
-      options.push(ingredient.ingredient); // Conversion en minuscules
-    });
-  });
-  const setOptions = new Set(options);
-  const arrayOptions = Array.from(setOptions);
-
-  return arrayOptions;
+  return uniqueOptions;
 }
 
 function getApplianceOptions() {
