@@ -1,15 +1,15 @@
-import recipes from "../../data/recipes";
-
-export function hiddeSelectBox() {
+export function hideSelectBox() {
   document.addEventListener('click', function (event) {
-    var selectContainers = document.querySelectorAll('.select-container');
+    var selectContainers = document.getElementsByClassName('select-container');
     var targetElement = event.target;
-
-    selectContainers.forEach(function (selectContainer) {
+    let i = 0;
+    while (i < selectContainers.length) {
+      const selectContainer = selectContainers[i];
       if (!selectContainer.contains(targetElement)) {
         selectContainer.classList.remove('open');
       }
-    });
+      i++;
+    }
   });
 }
 
