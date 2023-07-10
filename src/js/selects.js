@@ -302,6 +302,13 @@ function removeSelectedFilter(label) {
 function filterRecipes() {
   const searchText = searchInput.value.toLowerCase();
 
+    // Vérifier si l'utilisateur a tapé au moins trois lettres
+    if (searchText.length < 3) {
+      // Si moins de trois lettres ont été tapées, ne pas appliquer le filtrage
+      applyGlobalFilters(recipes);
+      return;
+    }
+
   const filteredRecipes = recipes.filter(function(recipe) {
     const propertiesToCheck = [
       "name",       // Nom de la recette
