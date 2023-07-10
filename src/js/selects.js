@@ -197,27 +197,17 @@ function removeSelectedFilter(label) {
 }
 
 function filterRecipes() {
-  // Récupérer la valeur saisie par l'utilisateur
   const searchText = searchInput.value.toLowerCase();
 
-  // Filtrer les recettes en fonction de la valeur saisie
-  const filteredRecipes = recipes.filter((recette) => {
-    // Vérifier si la valeur saisie correspond à n'importe quelle propriété de la recette
-    const propertiesToCheck = [
-      "name", // Nom de la recette
-      "appliance", // Appareil de la recette
-      "ustensils", // Ustensiles de la recette
-      "ingredients", // Ingrédients de la recette
-      "description"
-    ];
+  const filteredRecipes = recipes.filter((recipe) => {
+    const propertiesToCheck = ["name", "appliance", "ustensils", "ingredients", "description"];
 
     return propertiesToCheck.some((property) => {
-      if (typeof recette[property] === "string") {
-        // Pour les propriétés de type chaîne de caractères (name, appliance, description)
-        return recette[property].toLowerCase().includes(searchText);
-      } else if (Array.isArray(recette[property])) {
-        // Pour les propriétés de type tableau (ustensils, ingredients)
-        return recette[property].some((item) =>
+      const value = recipe[property];
+      if (typeof value === "string") {
+        return value.toLowerCase().includes(searchText);
+      } else if (Array.isArray(value)) {
+        return value.some((item) =>
           typeof item === "string" && item.toLowerCase().includes(searchText)
         );
       }
@@ -225,7 +215,6 @@ function filterRecipes() {
     });
   });
 
-  // Appliquer les filtres supplémentaires
   applyGlobalFilters(filteredRecipes);
 }
 
