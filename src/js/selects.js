@@ -1,5 +1,6 @@
 import { recipes } from "../data/recipes.js";
 import { renderRecipes } from "./cards.js";
+import { getOptions } from "./utils/utils.js";
 
 let selectedIngredients = [];
 let selectedUstensils = [];
@@ -66,7 +67,7 @@ function filterOptions(input, optionElements) {
   });
 }
 
-// récupérer les options pour chaque select
+//récupérer les options pour chaque select
 function getIngredientsOptions() {
   const options = [];
 
@@ -79,21 +80,7 @@ function getIngredientsOptions() {
   const arrayOptions = Array.from(setOptions);
 
   return arrayOptions;
-}
-
-function getApplianceOptions() {
-  const options = recipes.map(recipe => recipe.appliance);
-  const uniqueOptions = [...new Set(options)];
-
-  return uniqueOptions;
-}
-
-function getUstensilsOptions() {
-  const options = recipes.map(recipe => recipe.ustensils);
-  const uniqueOptions = [...new Set(options)];
-
-  return uniqueOptions;
-}
+} // revoir cette fonction
 
 export function getTotalRecipes(recipes) {
   const totalRecipes = document.querySelector(".total-recipes");
@@ -201,9 +188,9 @@ export function afficherSelectBox() {
     if (index === 0) {
       options = getIngredientsOptions();
     } else if (index === 1) {
-      options = getApplianceOptions();
+      options = getOptions('appliance');
     } else {
-      options = getUstensilsOptions();
+      options = getOptions('ustensils');
     }
 
     var selectContainer = createSelectBox(title, options);

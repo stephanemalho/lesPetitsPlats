@@ -1,3 +1,5 @@
+import recipes from "../../data/recipes";
+
 export function hideSelectBox() {
   document.addEventListener('click', function (event) {
     const selectContainers = document.querySelectorAll('.select-container');
@@ -9,4 +11,11 @@ export function hideSelectBox() {
       }
     }
   });
+}
+
+export function getOptions(key) {
+  const options = recipes.flatMap(recipe => recipe[key]);
+  const uniqueOptions = [...new Set(options)];
+
+  return uniqueOptions;
 }
