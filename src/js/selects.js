@@ -11,78 +11,34 @@ const searchInput = document.getElementById('search');
 // Écouter l'événement d'entrée utilisateur dans l'input
 searchInput.addEventListener('input', filterRecipes);
 
-// function createSelectBox(title, options) {
-//   const selectContainer = document.createElement("div");
-//   selectContainer.classList.add("select-container");
-
-//   selectContainer.innerHTML = `
-//     <button>${title}<i class="fa fa-chevron-down"></i></button>
-//     <label>
-//       <input type="text" class="search-input" placeholder="Rechercher..." id="${title.toLowerCase().replace(" ", "-")}">
-//       <i class="fa fa-regular fa-magnifying-glass"></i>
-//     </label>
-//     <ul class="options-container">
-//       ${options.map(option => `<li class="option">${option}</li>`).join('')}
-//     </ul>
-//   `;
-
-//   const button = selectContainer.querySelector("button");
-//   button.addEventListener("click", function() {
-//     toggleOptions(this);
-//   });
-
-//   const input = selectContainer.querySelector(".search-input");
-//   input.addEventListener("input", function() {
-//     const updatedOptionElements = selectContainer.querySelectorAll(".option");
-//     filterOptions(this, updatedOptionElements);
-//   });
-
-//   const optionElements = selectContainer.querySelectorAll(".option");
-//   filterOptionName(optionElements);
-
-//   return selectContainer;
-// }
-
 function createSelectBox(title, options) {
-  var selectContainer = document.createElement("div");
+  const selectContainer = document.createElement("div");
   selectContainer.classList.add("select-container");
-  var button = document.createElement("button");
-  button.textContent = title;
-  button.addEventListener("click", function () {
+
+  selectContainer.innerHTML = `
+    <button>${title}<i class="fa fa-chevron-down"></i></button>
+    <label>
+      <input type="text" class="search-input" placeholder="Rechercher..." id="${title.toLowerCase().replace(" ", "-")}">
+      <i class="fa fa-regular fa-magnifying-glass"></i>
+    </label>
+    <ul class="options-container">
+      ${options.map(option => `<li class="option">${option}</li>`).join('')}
+    </ul>
+  `;
+
+  const button = selectContainer.querySelector("button");
+  button.addEventListener("click", function() {
     toggleOptions(this);
   });
-  var label = document.createElement("label");
-  var input = document.createElement("input");
-  input.classList.add("search-input");
-  input.setAttribute("type", "text");
-  input.setAttribute("placeholder", "Rechercher...");
-  input.id = title.toLowerCase().replace(" ", "-");
-  label.appendChild(input);
-  label.id = input.id;
 
-  var optionsContainer = document.createElement("ul");
-  optionsContainer.classList.add("options-container");
-
-  options.forEach(function (option) {
-    var optionElement = document.createElement("li");
-    optionElement.classList.add("option");
-    optionElement.textContent = option;
-    optionsContainer.appendChild(optionElement);
-  });
-
-  const optionElements = optionsContainer.querySelectorAll(".option");
-  filterOptionName(optionElements);
-  console.log(optionElements);
-
-  input.addEventListener("input", function () {
-    const updatedOptionElements = optionsContainer.querySelectorAll(".option");
+  const input = selectContainer.querySelector(".search-input");
+  input.addEventListener("input", function() {
+    const updatedOptionElements = selectContainer.querySelectorAll(".option");
     filterOptions(this, updatedOptionElements);
   });
 
-  selectContainer.appendChild(button);
-  selectContainer.appendChild(label);
-  selectContainer.appendChild(input);
-  selectContainer.appendChild(optionsContainer);
+  const optionElements = selectContainer.querySelectorAll(".option");
+  filterOptionName(optionElements);
 
   return selectContainer;
 }
