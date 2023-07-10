@@ -1,6 +1,6 @@
 import { recipes } from "../data/recipes.js";
 import { renderRecipes } from "./cards.js";
-import { getOptions, toggleOptions } from "./utils/utils.js";
+import { getOptions, stringIncludes, toggleOptions } from "./utils/utils.js";
 
 let selectedIngredients = [];
 let selectedUstensils = [];
@@ -103,7 +103,7 @@ export function filterOptionName(elmList) {
 function applyFilters() {
   let filteredRecipes = recipes.filter(function (recipe) {
     let ingredientsMatch = selectedIngredients.length === 0 || recipe.ingredients.some(function (ingredient) {
-      return selectedIngredients.includes(ingredient.ingredient);
+    return selectedIngredients.includes(ingredient.ingredient);
     });
     let ustensilsMatch = selectedUstensils.length === 0 || selectedUstensils.every(function (selectedUstensil) {
       return recipe.ustensils.includes(selectedUstensil);
@@ -176,7 +176,6 @@ function removeSelectedFilter(label) {
 
 function filterRecipes() {
   const searchText = searchInput.value.toLowerCase();
-
   // Vérifier si l'utilisateur a tapé au moins trois lettres
   if (searchText.length < 3) {
     // Si moins de trois lettres ont été tapées, ne pas appliquer le filtrage
@@ -188,29 +187,22 @@ function filterRecipes() {
 
     return propertiesToCheck.some((property) => {
       const value = recipe[property];
-      if (typeof value === "string") {
-        return value.toLowerCase().includes(searchText);
-      } else if (Array.isArray(value)) {
-        return value.some((item) =>
-          typeof item === "string" && item.toLowerCase().includes(searchText)
-        );
-      }
-      return false;
+      return stringIncludes(value, searchText);
     });
   });
 
   applyGlobalFilters(filteredRecipes);
 }
 
+
 function applyGlobalFilters(recipes) {
   const filteredRecipes = recipes.filter(function(recipe) {
     const ingredientsMatch = selectedIngredients.length === 0 ||
       selectedIngredients.some(function(selectedIngredient) {
         return recipe.ingredients.some(function(ingredient) {
-          return ingredient.ingredient.toLowerCase().includes(selectedIngredient);
+          return stringIncludes(ingredient.ingredient, selectedIngredient); // fonction qui remplace le toLowercase.includes 
         });
       });
-
     const ustensilsMatch = selectedUstensils.length === 0 ||
       selectedUstensils.every(function(selectedUstensil) {
         return recipe.ustensils.includes(selectedUstensil);

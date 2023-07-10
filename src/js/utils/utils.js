@@ -26,3 +26,10 @@ export function toggleOptions(button) {
   const selectContainer = button.parentNode;
   selectContainer.classList.toggle("open");
 }
+
+export function stringIncludes(value, searchText) {
+  if (typeof value === "string" && typeof searchText === "string") {
+    return  value.toLowerCase().includes(searchText.toLowerCase());
+  }
+  return false;
+}
