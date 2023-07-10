@@ -71,68 +71,63 @@ function filterOptions(input, optionElements) {
   }
 }
 
-// récupérer les options pour chaque select
 function getIngredientsOptions() {
   var options = [];
 
-  recipes.forEach(function (recipe) {
-    recipe.ingredients.forEach(function (ingredient) {
-      options.push(ingredient.ingredient.toLowerCase());
+  recipes.forEach(function(recipe) {
+    recipe.ingredients.forEach(function(ingredient) {
+      options.push(ingredient.ingredient); // Conversion en minuscules
     });
   });
+  const setOptions = new Set(options);
+  const arrayOptions = Array.from(setOptions);
 
-  var uniqueOptions = [];
-  options.forEach(function (option) {
-    if (!uniqueOptions.includes(option)) {
-      uniqueOptions.push(option);
-    }
-  });
-
-  return uniqueOptions;
+  return arrayOptions;
 }
 
 function getApplianceOptions() {
-  var options = [];
-
-  for (var i = 0; i < recipes.length; i++) {
-    var recipe = recipes[i];
-    options.push(recipe.appliance);
-  }
-
-  var uniqueOptions = [];
-  for (var j = 0; j < options.length; j++) {
-    var option = options[j];
-    if (!uniqueOptions.includes(option)) {
-      uniqueOptions.push(option);
+    var options = [];
+  
+    for (var i = 0; i < recipes.length; i++) {
+      var recipe = recipes[i];
+      options.push(recipe.appliance);
     }
-  }
-
-  return uniqueOptions;
-}
-
-function getUstensilsOptions() {
-  var options = [];
-
-  for (var i = 0; i < recipes.length; i++) {
-    var recipe = recipes[i];
-    var ustensils = recipe.ustensils;
-
-    for (var j = 0; j < ustensils.length; j++) {
-      var ustensil = ustensils[j];
-      options.push(ustensil);
+  
+    var uniqueOptions = [];
+    for (var j = 0; j < options.length; j++) {
+      var option = options[j];
+      if (!uniqueOptions.includes(option)) {
+        uniqueOptions.push(option);
+      }
     }
+  
+    return uniqueOptions;
   }
-
-  var uniqueOptions = [];
-  for (var k = 0; k < options.length; k++) {
-    var option = options[k];
-    if (!uniqueOptions.includes(option)) {
-      uniqueOptions.push(option);
+  
+  function getUstensilsOptions() {
+    var options = [];
+  
+    for (var i = 0; i < recipes.length; i++) {
+      var recipe = recipes[i];
+      var ustensils = recipe.ustensils;
+  
+      for (var j = 0; j < ustensils.length; j++) {
+        var ustensil = ustensils[j];
+        options.push(ustensil);
+      }
     }
+  
+    var uniqueOptions = [];
+    for (var k = 0; k < options.length; k++) {
+      var option = options[k];
+      if (!uniqueOptions.includes(option)) {
+        uniqueOptions.push(option);
+      }
+    }
+  
+    return uniqueOptions;
   }
 
-  return uniqueOptions;
-}
 
 export function getTotalRecipes(recipes) {
   const totalRecipes = document.querySelector(".total-recipes");
