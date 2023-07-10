@@ -94,25 +94,44 @@ function getIngredientsOptions() {
 function getApplianceOptions() {
   var options = [];
 
-  recipes.forEach(function (recipe) {
+  for (var i = 0; i < recipes.length; i++) {
+    var recipe = recipes[i];
     options.push(recipe.appliance);
-  });
-  const setOptions = new Set(options);
-  const arrayOptions = Array.from(setOptions);
-  return arrayOptions;
+  }
+
+  var uniqueOptions = [];
+  for (var j = 0; j < options.length; j++) {
+    var option = options[j];
+    if (!uniqueOptions.includes(option)) {
+      uniqueOptions.push(option);
+    }
+  }
+
+  return uniqueOptions;
 }
 
 function getUstensilsOptions() {
   var options = [];
 
-  recipes.forEach(function (recipe) {
-    recipe.ustensils.forEach(function (ustensil) {
+  for (var i = 0; i < recipes.length; i++) {
+    var recipe = recipes[i];
+    var ustensils = recipe.ustensils;
+
+    for (var j = 0; j < ustensils.length; j++) {
+      var ustensil = ustensils[j];
       options.push(ustensil);
-    });
-  });
-  const setOptions = new Set(options);
-  const arrayOptions = Array.from(setOptions);
-  return arrayOptions;
+    }
+  }
+
+  var uniqueOptions = [];
+  for (var k = 0; k < options.length; k++) {
+    var option = options[k];
+    if (!uniqueOptions.includes(option)) {
+      uniqueOptions.push(option);
+    }
+  }
+
+  return uniqueOptions;
 }
 
 export function getTotalRecipes(recipes) {
