@@ -219,34 +219,24 @@ function filterRecipes() {
 }
 
 function applyGlobalFilters(recipes) {
-  let filteredRecipes = recipes.filter(function (recipe) {
-    // Vérifier si la recette correspond aux filtres d'ingrédients, d'ustensiles et d'appareil sélectionnés
-    let ingredientsMatch = true;
-    let ustensilsMatch = true;
-    let applianceMatch = true;
-    let descriptionMatch = true;
-
-    if (selectedIngredients.length > 0) {
-      ingredientsMatch = selectedIngredients.some(function (selectedIngredient) {
-        return recipe.ingredients.some(function (ingredient) {
+  const filteredRecipes = recipes.filter(function(recipe) {
+    const ingredientsMatch = selectedIngredients.length === 0 ||
+      selectedIngredients.some(function(selectedIngredient) {
+        return recipe.ingredients.some(function(ingredient) {
           return ingredient.ingredient.toLowerCase().includes(selectedIngredient);
         });
       });
-    }
 
-    if (selectedUstensils.length > 0) {
-      ustensilsMatch = selectedUstensils.every(function (selectedUstensil) {
+    const ustensilsMatch = selectedUstensils.length === 0 ||
+      selectedUstensils.every(function(selectedUstensil) {
         return recipe.ustensils.includes(selectedUstensil);
       });
-    }
 
-    if (selectedAppliance.length > 0) {
-      applianceMatch = selectedAppliance.includes(recipe.appliance);
-    }
+    const applianceMatch = selectedAppliance.length === 0 ||
+      selectedAppliance.includes(recipe.appliance);
 
-    if (selectedDescription.length > 0) {
-      descriptionMatch = selectedDescription.includes(recipe.description);
-    }
+    const descriptionMatch = selectedDescription.length === 0 ||
+      selectedDescription.includes(recipe.description);
 
     return ingredientsMatch && ustensilsMatch && applianceMatch && descriptionMatch;
   });
