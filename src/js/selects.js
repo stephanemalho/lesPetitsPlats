@@ -1,6 +1,6 @@
 import { recipes } from "../data/recipes.js";
 import { renderRecipes } from "./cards.js";
-import { getOptions } from "./utils/utils.js";
+import { getOptions, toggleOptions } from "./utils/utils.js";
 
 let selectedIngredients = [];
 let selectedUstensils = [];
@@ -16,9 +16,10 @@ function createSelectBox(title, options) {
   selectContainer.classList.add("select-container");
 
   selectContainer.innerHTML = `
-    <button>${title}</button>
+    <button>${title}<i class="fa fa-chevron-down"></i></button>
     <label>
       <input type="text" class="search-input" placeholder="Rechercher..." id="${title.toLowerCase().replace(" ", "-")}">
+      <i class="fa fa-regular fa-magnifying-glass"></i>
     </label>
     <ul class="options-container">
       ${options.map(option => `<li class="option">${option}</li>`).join('')}
@@ -56,10 +57,9 @@ function filterOptions(input, optionElements) {
 //récupérer les options pour chaque select
 function getIngredientsOptions() {
   const options = [];
-
   recipes.forEach(function (recipe) {
     recipe.ingredients.forEach(function (ingredient) {
-      options.push(ingredient.ingredient); // Conversion en minuscules
+      options.push(ingredient.ingredient);
     });
   });
   const setOptions = new Set(options);
@@ -78,7 +78,6 @@ export function filterOptionName(elmList) {
     elm.addEventListener("click", function () {
       const filter = elm.textContent;
       const filterType = elm.parentNode.parentNode.firstChild.textContent;
-
       const selectedArray =
         filterType === "Ingrédients"
           ? selectedIngredients
@@ -106,11 +105,9 @@ function applyFilters() {
     let ingredientsMatch = selectedIngredients.length === 0 || recipe.ingredients.some(function (ingredient) {
       return selectedIngredients.includes(ingredient.ingredient);
     });
-
     let ustensilsMatch = selectedUstensils.length === 0 || selectedUstensils.every(function (selectedUstensil) {
       return recipe.ustensils.includes(selectedUstensil);
     });
-
     let applianceMatch = selectedAppliance.length === 0 || selectedAppliance.includes(recipe.appliance);
 
     return ingredientsMatch && ustensilsMatch && applianceMatch;
@@ -121,11 +118,11 @@ function applyFilters() {
 }
 
 export function afficherSelectBox() {
-  var container = document.querySelector(".filter__container");
-  var selectTitles = ["Ingrédients", "Appareils", "Ustensiles"];
+  const container = document.querySelector(".filter__container");
+  const selectTitles = ["Ingrédients", "Appareils", "Ustensiles"];
 
   selectTitles.forEach(function (title, index) {
-    var options;
+    let options;
 
     if (index === 0) {
       options = getIngredientsOptions();
@@ -135,15 +132,10 @@ export function afficherSelectBox() {
       options = getOptions('ustensils');
     }
 
-    var selectContainer = createSelectBox(title, options);
+    const selectContainer = createSelectBox(title, options);
     container.appendChild(selectContainer);
   });
   applyFilters();
-}
-
-function toggleOptions(button) {
-  const selectContainer = button.parentNode;
-  selectContainer.classList.toggle("open");
 }
 
 export function createSelectedFilter(label) {

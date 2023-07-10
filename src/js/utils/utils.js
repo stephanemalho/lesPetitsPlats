@@ -19,3 +19,10 @@ export function getOptions(key) {
 
   return uniqueOptions;
 }
+
+export function toggleOptions(button) {
+  const chevronIcon = button.querySelector("i.fa-chevron-down");
+  chevronIcon.classList.toggle("rotated");
+  const selectContainer = button.parentNode;
+  selectContainer.classList.toggle("open");
+}

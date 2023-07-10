@@ -58,6 +58,39 @@ h1 {
   margin-bottom: 1rem;
 }
 
+.header-title-container {
+  width: 200px;
+  position: absolute;
+  top: 210px;
+  left: 20px;
+}
+.big-circle {
+    background-color: #fff;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid black;
+    position: absolute;
+    z-index: 7;
+    top: 10px;
+    left: 179px;
+    width: 20px;
+    height: 20px;
+}
+.smaller-circle {
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid black;
+  position: absolute;
+  font-size: 1.7rem;
+  color: white;
+  text-align: center;
+  width: 13px;
+  height: 13px;
+  position: absolute;
+  top: 1.5px;
+  left: 1.5px;
+}
+
 h2 {
   font-family: "Anton", "open-sans", sans-serif;
   font-style: normal;
@@ -167,7 +200,8 @@ main {
 /* Style général des select box */
 .select-container {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
   margin-left: 33px;
 }
 
@@ -414,4 +448,15 @@ h3 {
   font-size: 21px;
   text-transform: uppercase;
   margin: 0;
+}
+
+.fa-chevron-down {
+    font-weight: 900;
+    position: absolute;
+    right: 15px;
+    top: 22px;
+}
+
+.rotated {
+    transform: rotate(180deg);
 }
