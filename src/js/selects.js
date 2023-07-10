@@ -300,35 +300,37 @@ function removeSelectedFilter(label) {
 }
 
 function filterRecipes() {
-  // Récupérer la valeur saisie par l'utilisateur
   const searchText = searchInput.value.toLowerCase();
 
-  // Filtrer les recettes en fonction de la valeur saisie
-  const filteredRecipes = recipes.filter((recette) => {
-    // Vérifier si la valeur saisie correspond à n'importe quelle propriété de la recette
+  const filteredRecipes = recipes.filter(function(recipe) {
     const propertiesToCheck = [
-      "name", // Nom de la recette
-      "appliance", // Appareil de la recette
-      "ustensils", // Ustensiles de la recette
-      "ingredients", // Ingrédients de la recette
-      "description"
+      "name",       // Nom de la recette
+      "appliance",  // Appareil de la recette
+      "ustensils",  // Ustensiles de la recette
+      "ingredients" // Ingrédients de la recette
     ];
 
-    return propertiesToCheck.some((property) => {
-      if (typeof recette[property] === "string") {
-        // Pour les propriétés de type chaîne de caractères (name, appliance, description)
-        return recette[property].toLowerCase().includes(searchText);
-      } else if (Array.isArray(recette[property])) {
-        // Pour les propriétés de type tableau (ustensils, ingredients)
-        return recette[property].some((item) =>
-          typeof item === "string" && item.toLowerCase().includes(searchText)
-        );
+    for (var i = 0; i < propertiesToCheck.length; i++) {
+      var property = propertiesToCheck[i];
+      var value = recipe[property];
+
+      if (typeof value === "string") {
+        if (value.toLowerCase().includes(searchText)) {
+          return true;
+        }
+      } else if (Array.isArray(value)) {
+        for (var j = 0; j < value.length; j++) {
+          var item = value[j];
+          if (typeof item === "string" && item.toLowerCase().includes(searchText)) {
+            return true;
+          }
+        }
       }
-      return false;
-    });
+    }
+
+    return false;
   });
 
-  // Appliquer les filtres supplémentaires
   applyGlobalFilters(filteredRecipes);
 }
 
