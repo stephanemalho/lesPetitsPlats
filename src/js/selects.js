@@ -80,7 +80,7 @@ function getIngredientsOptions() {
   const arrayOptions = Array.from(setOptions);
 
   return arrayOptions;
-} // revoir cette fonction
+}
 
 export function getTotalRecipes(recipes) {
   const totalRecipes = document.querySelector(".total-recipes");
@@ -200,7 +200,7 @@ export function afficherSelectBox() {
 }
 
 function toggleOptions(button) {
-  var selectContainer = button.parentNode;
+  const selectContainer = button.parentNode;
   selectContainer.classList.toggle("open");
 }
 
