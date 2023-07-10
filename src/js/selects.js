@@ -84,12 +84,7 @@ function getIngredientsOptions() {
 
 export function getTotalRecipes(recipes) {
   const totalRecipes = document.querySelector(".total-recipes");
-  totalRecipes.textContent = `${recipes.length}`;
-  if (recipes.length > 1) {
-    totalRecipes.textContent += " recettes";
-  } else {
-    totalRecipes.textContent += " recette";
-  }
+  totalRecipes.textContent = `${recipes.length} recette${recipes.length > 1 ? 's' : ''}`;
 }
 
 export function filterOptionName(elmList) {
@@ -98,45 +93,21 @@ export function filterOptionName(elmList) {
       const filter = elm.textContent;
       const filterType = elm.parentNode.parentNode.firstChild.textContent;
 
-      switch (filterType) {
-        case "Ingrédients":
-          console.log("FILTER TYPE " + filterType);
-          if (selectedIngredients.includes(filter)) {
-            selectedIngredients = selectedIngredients.filter(
-              (ingredient) => ingredient !== filter
-            );
-            removeSelectedFilter(filter);
-          } else {
-            selectedIngredients.push(filter);
-            createSelectedFilter(filter);
-          }
-          break;
-        case "Appareils":
-          console.log("FILTER TYPE " + filterType);
-          if (selectedAppliance.includes(filter)) {
-            selectedAppliance = selectedAppliance.filter(
-              (appliance) => appliance !== filter
-            );
-            removeSelectedFilter(filter);
-          } else {
-            selectedAppliance.push(filter);
-            createSelectedFilter(filter);
-          }
-          break;
-        case "Ustensiles":
-          console.log("FILTER TYPE " + filterType);
-          if (selectedUstensils.includes(filter)) {
-            selectedUstensils = selectedUstensils.filter(
-              (ustensil) => ustensil !== filter
-            );
-            removeSelectedFilter(filter);
-          } else {
-            selectedUstensils.push(filter);
-            createSelectedFilter(filter);
-          }
-          break;
-        default:
-          console.log("error");
+      const selectedArray =
+        filterType === "Ingrédients"
+          ? selectedIngredients
+          : filterType === "Appareils"
+          ? selectedAppliance
+          : filterType === "Ustensiles"
+          ? selectedUstensils
+          : [];
+
+      if (selectedArray.includes(filter)) {
+        selectedArray.splice(selectedArray.indexOf(filter), 1);
+        removeSelectedFilter(filter);
+      } else {
+        selectedArray.push(filter);
+        createSelectedFilter(filter);
       }
 
       applyFilters();
@@ -146,30 +117,15 @@ export function filterOptionName(elmList) {
 
 function applyFilters() {
   let filteredRecipes = recipes.filter(function (recipe) {
-    // Vérifier si la recette correspond aux filtres d'ingrédients, d'ustensiles et d'appareil sélectionnés
-    let ingredientsMatch = true;
-    let ustensilsMatch = true;
-    let applianceMatch = true;
+    let ingredientsMatch = selectedIngredients.length === 0 || recipe.ingredients.some(function (ingredient) {
+      return selectedIngredients.includes(ingredient.ingredient);
+    });
 
-    if (selectedIngredients.length > 0) {
-      ingredientsMatch = selectedIngredients.some(function (
-        selectedIngredient
-      ) {
-        return recipe.ingredients.some(function (ingredient) {
-          return ingredient.ingredient.includes(selectedIngredient);
-        });
-      });
-    }
+    let ustensilsMatch = selectedUstensils.length === 0 || selectedUstensils.every(function (selectedUstensil) {
+      return recipe.ustensils.includes(selectedUstensil);
+    });
 
-    if (selectedUstensils.length > 0) {
-      ustensilsMatch = selectedUstensils.every(function (selectedUstensil) {
-        return recipe.ustensils.includes(selectedUstensil);
-      });
-    }
-
-    if (selectedAppliance.length > 0) {
-      applianceMatch = selectedAppliance.includes(recipe.appliance);
-    }
+    let applianceMatch = selectedAppliance.length === 0 || selectedAppliance.includes(recipe.appliance);
 
     return ingredientsMatch && ustensilsMatch && applianceMatch;
   });
@@ -210,24 +166,17 @@ export function createSelectedFilter(label) {
   const selectedFilter = document.createElement("div");
   selectedFilter.classList.add("selected-filter");
 
-  const filterLabel = document.createElement("label");
-  filterLabel.textContent = label;
+  selectedFilter.innerHTML = `
+    <label>${label}</label>
+    <button class="remove-button"><i class="fas fa-times"></i></button>
+  `;
 
-  const removeButton = document.createElement("button");
-  removeButton.classList.add("remove-button");
-  
-  const removeIcon = document.createElement("i");
-  removeIcon.classList.add("fas", "fa-times");  
-  removeButton.appendChild(removeIcon);
-
-  // Ajoute un gestionnaire d'événements au bouton de suppression
+  const removeButton = selectedFilter.querySelector(".remove-button");
   removeButton.addEventListener("click", () => {
     selectedFilter.remove();
     removeSelectedFilter(label);
   });
 
-  selectedFilter.appendChild(filterLabel);
-  selectedFilter.appendChild(removeButton);
   filterSelectedBox.appendChild(selectedFilter);
 }
 
