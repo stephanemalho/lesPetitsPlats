@@ -11,47 +11,33 @@ const searchInput = document.getElementById('search');
 // Écouter l'événement d'entrée utilisateur dans l'input
 searchInput.addEventListener('input', filterRecipes);
 
-// créer les select box
 function createSelectBox(title, options) {
   const selectContainer = document.createElement("div");
   selectContainer.classList.add("select-container");
-  const button = document.createElement("button");
-  button.textContent = title;
-  button.addEventListener("click", function () {
+
+  selectContainer.innerHTML = `
+    <button>${title}</button>
+    <label>
+      <input type="text" class="search-input" placeholder="Rechercher..." id="${title.toLowerCase().replace(" ", "-")}">
+    </label>
+    <ul class="options-container">
+      ${options.map(option => `<li class="option">${option}</li>`).join('')}
+    </ul>
+  `;
+
+  const button = selectContainer.querySelector("button");
+  button.addEventListener("click", function() {
     toggleOptions(this);
   });
-  const label = document.createElement("label");
-  const input = document.createElement("input");
-  input.classList.add("search-input");
-  input.setAttribute("type", "text");
-  input.setAttribute("placeholder", "Rechercher...");
-  input.id = title.toLowerCase().replace(" ", "-");
-  label.appendChild(input);
-  label.id = input.id;
 
-  const optionsContainer = document.createElement("ul");
-  optionsContainer.classList.add("options-container");
-
-  options.forEach(function (option) {
-    const optionElement = document.createElement("li");
-    optionElement.classList.add("option");
-    optionElement.textContent = option;
-    optionsContainer.appendChild(optionElement);
-  });
-
-  const optionElements = optionsContainer.querySelectorAll(".option");
-  filterOptionName(optionElements);
-  console.log(optionElements);
-
-  input.addEventListener("input", function () {
+  const input = selectContainer.querySelector(".search-input");
+  input.addEventListener("input", function() {
     const updatedOptionElements = selectContainer.querySelectorAll(".option");
     filterOptions(this, updatedOptionElements);
   });
 
-  selectContainer.appendChild(button);
-  selectContainer.appendChild(label);
-  selectContainer.appendChild(input);
-  selectContainer.appendChild(optionsContainer);
+  const optionElements = selectContainer.querySelectorAll(".option");
+  filterOptionName(optionElements);
 
   return selectContainer;
 }
