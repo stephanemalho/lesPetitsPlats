@@ -29,17 +29,17 @@ function createSelectBox(title, options) {
   const input = selectContainer.querySelector(".search-input");
   input.addEventListener("input", function() {
     const updatedOptionElements = selectContainer.querySelectorAll(".option");
-    filterOptions(this, updatedOptionElements);
+    filterSelectOptions(this, updatedOptionElements);
   });
 
   const optionElements = selectContainer.querySelectorAll(".option");
-  filterOptionName(optionElements);
+  filterLabelOption(optionElements);
 
   return selectContainer;
 }
 
 // filter les options dans la select box
-function filterOptions(input, optionElements) {
+function filterSelectOptions(input, optionElements) {
   const filterValue = input.value.toLowerCase();
 
   optionElements.forEach(optionElement => {
@@ -50,29 +50,19 @@ function filterOptions(input, optionElements) {
   });
 }
 
-function filterOptionName(elmList) {
+function filterLabelOption(elmList) {
   elmList.forEach(function (elm) {
     elm.addEventListener("click", function () {
-      const filter = elm.textContent;
-      const filterType = elm.parentNode.parentNode.firstChild.textContent;
-      const selectedArray =
-        filterType === "Ingrédients"
-          ? selectedIngredients
-          : filterType === "Appareils"
-          ? selectedAppliance
-          : filterType === "Ustensiles"
-          ? selectedUstensils
-          : [];
-
-      if (selectedArray.includes(filter)) {
-        selectedArray.splice(selectedArray.indexOf(filter), 1);
-        removeSelectedFilter(filter);
-        applyFilters();
+      const label = this.closest(".select-container").querySelector("button").textContent;
+      const filterValue = this.textContent;
+      if (label === "Ingrédients") {
+        selectedIngredients.push(filterValue);
+      } else if (label === "Appareils") {
+        selectedAppliance.push(filterValue);
       } else {
-        selectedArray.push(filter);
-        createSelectedFilter(filter);
-        applyFilters();
+        selectedUstensils.push(filterValue);
       }
+      createSelectedFilter(filterValue);
       applyFilters();
     });
   });
@@ -90,6 +80,8 @@ function applyFilters() {
 
     return ingredientsMatch && ustensilsMatch && applianceMatch;
   });
+
+
 
   renderRecipes(filteredRecipes);
   getTotalRecipes(filteredRecipes);
