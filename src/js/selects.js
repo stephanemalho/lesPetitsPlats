@@ -1,15 +1,10 @@
 import { recipes } from "../data/recipes.js";
 import { renderRecipes } from "./cards.js";
-import { getOptions, stringIncludes, toggleOptions } from "./utils/utils.js";
+import { getIngredientsOptions, getOptions, getTotalRecipes, toggleOptions } from "./utils/utils.js";
 
 let selectedIngredients = [];
 let selectedUstensils = [];
 let selectedAppliance = [];
-let selectedDescription = [];
-
-const searchInput = document.getElementById('search');
-// Écouter l'événement d'entrée utilisateur dans l'input
-searchInput.addEventListener('input', filterRecipes);
 
 function createSelectBox(title, options) {
   const selectContainer = document.createElement("div");
@@ -42,6 +37,7 @@ function createSelectBox(title, options) {
 
   return selectContainer;
 }
+
 // filter les options dans la select box
 function filterOptions(input, optionElements) {
   const filterValue = input.value.toLowerCase();
@@ -53,26 +49,8 @@ function filterOptions(input, optionElements) {
     optionElement.style.display = (filterValue === "" || optionMatches) ? "block" : "none"; // operateur ternaire
   });
 }
-//récupérer les options pour chaque select
-function getIngredientsOptions() {
-  const options = [];
-  recipes.forEach(function (recipe) {
-    recipe.ingredients.forEach(function (ingredient) {
-      options.push(ingredient.ingredient);
-    });
-  });
-  const setOptions = new Set(options);
-  const arrayOptions = Array.from(setOptions);
 
-  return arrayOptions;
-}
-// afficher le total de recettes en grandant l'orthographe du mot recette
-export function getTotalRecipes(recipes) {
-  const totalRecipes = document.querySelector(".total-recipes");
-  totalRecipes.textContent = `${recipes.length} recette${recipes.length > 1 ? 's' : ''}`;
-}
-
-export function filterOptionName(elmList) {
+function filterOptionName(elmList) {
   elmList.forEach(function (elm) {
     elm.addEventListener("click", function () {
       const filter = elm.textContent;
@@ -89,11 +67,12 @@ export function filterOptionName(elmList) {
       if (selectedArray.includes(filter)) {
         selectedArray.splice(selectedArray.indexOf(filter), 1);
         removeSelectedFilter(filter);
+        applyFilters();
       } else {
         selectedArray.push(filter);
         createSelectedFilter(filter);
+        applyFilters();
       }
-
       applyFilters();
     });
   });
@@ -134,10 +113,9 @@ export function afficherSelectBox() {
     const selectContainer = createSelectBox(title, options);
     container.appendChild(selectContainer);
   });
-  applyFilters();
 }
 
-export function createSelectedFilter(label) {
+function createSelectedFilter(label) {
   const filterSelectedBox = document.querySelector(".filter-selected_box");
 
   const selectedFilter = document.createElement("div");
@@ -171,51 +149,4 @@ function removeSelectedFilter(label) {
   selectedAppliance = selectedAppliance.filter((appliance) => appliance !== label);
 
   applyFilters(); // Appliquer les filtres
-}
-
-function filterRecipes() {
-  const searchText = searchInput.value.toLowerCase();
-  // Vérifier si l'utilisateur a tapé au moins trois lettres
-  if (searchText.length < 3) {
-    // Si moins de trois lettres ont été tapées, ne pas appliquer le filtrage
-    applyGlobalFilters(recipes);
-    return;
-  }
-  const filteredRecipes = recipes.filter((recipe) => {
-    const propertiesToCheck = ["name", "appliance", "ustensils", "ingredients", "description"];
-
-    return propertiesToCheck.some((property) => {
-      const value = recipe[property];
-      return stringIncludes(value, searchText);
-    });
-  });
-
-  applyGlobalFilters(filteredRecipes);
-}
-
-
-function applyGlobalFilters(recipes) {
-  const filteredRecipes = recipes.filter(function(recipe) {
-    const ingredientsMatch = selectedIngredients.length === 0 ||
-      selectedIngredients.some(function(selectedIngredient) {
-        return recipe.ingredients.some(function(ingredient) {
-          return stringIncludes(ingredient.ingredient, selectedIngredient); // fonction qui remplace le toLowercase.includes 
-        });
-      });
-    const ustensilsMatch = selectedUstensils.length === 0 ||
-      selectedUstensils.every(function(selectedUstensil) {
-        return recipe.ustensils.includes(selectedUstensil);
-      });
-
-    const applianceMatch = selectedAppliance.length === 0 ||
-      selectedAppliance.includes(recipe.appliance);
-
-    const descriptionMatch = selectedDescription.length === 0 ||
-      selectedDescription.includes(recipe.description);
-
-    return ingredientsMatch && ustensilsMatch && applianceMatch && descriptionMatch;
-  });
-
-  renderRecipes(filteredRecipes);
-  getTotalRecipes(filteredRecipes);
 }

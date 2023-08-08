@@ -13,6 +13,19 @@ export function hideSelectBox() {
   });
 }
 
+export function getIngredientsOptions() {
+  const options = [];
+  recipes.forEach(function (recipe) {
+    recipe.ingredients.forEach(function (ingredient) {
+      options.push(ingredient.ingredient);
+    });
+  });
+  const setOptions = new Set(options);
+  const arrayOptions = Array.from(setOptions);
+
+  return arrayOptions;
+}
+
 export function getOptions(key) {
   const options = recipes.flatMap(recipe => recipe[key]);
   const uniqueOptions = [...new Set(options)];
@@ -32,4 +45,10 @@ export function stringIncludes(value, searchText) {
     return  value.toLowerCase().includes(searchText.toLowerCase());
   }
   return false;
+}
+
+// afficher le total de recettes en grandant l'orthographe du mot recette
+export function getTotalRecipes(recipes) {
+  const totalRecipes = document.querySelector(".total-recipes");
+  totalRecipes.textContent = `${recipes.length} recette${recipes.length > 1 ? 's' : ''}`;
 }
