@@ -71,6 +71,7 @@ function filterOptions(input, optionElements) {
   }
 }
 
+// afficher la liste des ingrédients
 function getIngredientsOptions() {
   var options = [];
 
@@ -85,6 +86,7 @@ function getIngredientsOptions() {
   return arrayOptions;
 }
 
+// afficher la liste des appareils
 function getApplianceOptions() {
     var options = [];
   
@@ -103,7 +105,7 @@ function getApplianceOptions() {
   
     return uniqueOptions;
   }
-  
+  // afficher la liste des Ustenciles
   function getUstensilsOptions() {
     var options = [];
   
@@ -127,8 +129,7 @@ function getApplianceOptions() {
   
     return uniqueOptions;
   }
-
-
+// afficher le total des recettes trouvées en gardant la bonne orthographe
 export function getTotalRecipes(recipes) {
   const totalRecipes = document.querySelector(".total-recipes");
   totalRecipes.textContent = `${recipes.length}`;
