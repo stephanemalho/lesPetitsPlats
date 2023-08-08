@@ -1,6 +1,6 @@
 import { recipes } from "../data/recipes.js";
 import { renderRecipes } from "./cards.js";
-import { getIngredientsOptions, getOptions, getTotalRecipes, toggleOptions } from "./utils/utils.js";
+import { getIngredientsOptions, getOptions, getTotalRecipes, toggleOptions, toggleSelectedFilter } from "./utils/utils.js";
 
 let selectedIngredients = [];
 let selectedUstensils = [];
@@ -50,19 +50,41 @@ function filterSelectOptions(input, optionElements) {
   });
 }
 
+// function filterLabelOption(elmList) {
+//   elmList.forEach(function (elm) {
+//     elm.addEventListener("click", function () {
+//       const label = this.closest(".select-container").querySelector("button").textContent;
+//       const filterValue = this.textContent;
+//       if (label === "Ingrédients") {
+//         selectedIngredients.push(filterValue);
+//       } else if (label === "Appareils") {
+//         selectedAppliance.push(filterValue);
+//       } else {
+//         selectedUstensils.push(filterValue);
+//       }
+//       createSelectedFilter(filterValue);
+//       applyFilters();
+//     });
+//   });
+// }
+
 function filterLabelOption(elmList) {
   elmList.forEach(function (elm) {
     elm.addEventListener("click", function () {
       const label = this.closest(".select-container").querySelector("button").textContent;
       const filterValue = this.textContent;
+
       if (label === "Ingrédients") {
+        toggleSelectedFilter(filterValue, selectedIngredients);
         selectedIngredients.push(filterValue);
       } else if (label === "Appareils") {
+        toggleSelectedFilter(filterValue, selectedAppliance);
         selectedAppliance.push(filterValue);
       } else {
+        toggleSelectedFilter(filterValue, selectedUstensils);
         selectedUstensils.push(filterValue);
       }
-      createSelectedFilter(filterValue);
+
       applyFilters();
     });
   });
@@ -107,11 +129,12 @@ export function afficherSelectBox() {
   });
 }
 
-function createSelectedFilter(label) {
+export function createSelectedFilter(label) {
   const filterSelectedBox = document.querySelector(".filter-selected_box");
 
   const selectedFilter = document.createElement("div");
   selectedFilter.classList.add("selected-filter");
+  selectedFilter.classList.add("selected"); // Ajout de la classe "selected"
 
   selectedFilter.innerHTML = `
     <label>${label}</label>
@@ -127,10 +150,11 @@ function createSelectedFilter(label) {
   filterSelectedBox.appendChild(selectedFilter);
 }
 
-function removeSelectedFilter(label) {
+export function removeSelectedFilter(label) {
   const selectedFilter = document.querySelectorAll(".selected-filter");
   selectedFilter.forEach(function (filter) {
     if (filter.textContent === label) {
+      filter.classList.remove("selected"); // Suppression de la classe "selected"
       filter.remove();
     }
   });

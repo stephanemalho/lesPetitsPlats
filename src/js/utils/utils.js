@@ -1,4 +1,5 @@
 import recipes from "../../data/recipes";
+import { createSelectedFilter, removeSelectedFilter } from "../selects";
 
 export function hideSelectBox() {
   document.addEventListener('click', function (event) {
@@ -38,6 +39,16 @@ export function toggleOptions(button) {
   chevronIcon.classList.toggle("rotated");
   const selectContainer = button.parentNode;
   selectContainer.classList.toggle("open");
+}
+
+export function toggleSelectedFilter(label, selectedArray) {
+  const index = selectedArray.indexOf(label);
+  if (index !== -1) {
+    selectedArray.splice(index, 1);
+    removeSelectedFilter(label);
+  } else {
+    createSelectedFilter(label);
+  }
 }
 
 export function stringIncludes(value, searchText) {
