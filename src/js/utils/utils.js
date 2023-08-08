@@ -39,6 +39,13 @@ export function toggleOptions(button) {
   chevronIcon.classList.toggle("rotated");
   const selectContainer = button.parentNode;
   selectContainer.classList.toggle("open");
+  const searchIcon = selectContainer.querySelector("i.fa-search");
+  
+  if (selectContainer.classList.contains("open")) {
+    searchIcon.classList.remove("hidden"); // Cacher l'icône lorsque la select box est ouverte
+  } else {
+    searchIcon.classList.add("hidden"); // Afficher l'icône lorsque la select box est fermée
+  }
 }
 
 export function toggleSelectedFilter(label, selectedArray) {

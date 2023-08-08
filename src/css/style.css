@@ -457,6 +457,18 @@ h3 {
     top: 22px;
 }
 
+i.fa-search {
+    position: absolute;
+    z-index: 1;
+    color: #ccc;
+    top: 55px;
+    right: 20px;
+}
+
+i.fa-search.hidden {
+    display: none;
+}
+
 .rotated {
     transform: rotate(180deg);
 }

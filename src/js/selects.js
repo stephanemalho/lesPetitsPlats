@@ -13,12 +13,12 @@ function createSelectBox(title, options) {
   selectContainer.innerHTML = `
     <button>${title}<i class="fa fa-chevron-down"></i></button>
     <label>
-      <input type="text" class="search-input" placeholder="Rechercher..." id="${title.toLowerCase().replace(" ", "-")}">
-      <i class="fa fa-regular fa-magnifying-glass"></i>
+    <input type="text" class="search-input" placeholder="Rechercher..." id="${title.toLowerCase().replace(" ", "-")}">
     </label>
-    <ul class="options-container">
+    <i class="fas fa-search hidden"></i>
+      <ul class="options-container">
       ${options.map(option => `<li class="option">${option}</li>`).join('')}
-    </ul>
+      </ul>
   `;
 
   const button = selectContainer.querySelector("button");
@@ -30,6 +30,13 @@ function createSelectBox(title, options) {
   input.addEventListener("input", function() {
     const updatedOptionElements = selectContainer.querySelectorAll(".option");
     filterSelectOptions(this, updatedOptionElements);
+  });
+
+  const icon = selectContainer.querySelector("i.fa-search");
+  icon.addEventListener("click", function() {
+    const updatedOptionElements = selectContainer.querySelectorAll(".option");
+    filterSelectOptions(input, updatedOptionElements);
+    input.value = "";
   });
 
   const optionElements = selectContainer.querySelectorAll(".option");
