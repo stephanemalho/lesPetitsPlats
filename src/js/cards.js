@@ -1,26 +1,9 @@
-
-
+// créer une fonction qui génère le contenu HTML d'une carte de recette
 function createRecipeCard(recipe) {
   const recipeCard = document.createElement("figure");
   recipeCard.classList.add("card__image-container");
 
-  const ingredientsList = recipe.ingredients
-    .map((ingredient) => {
-      let ingredientText = ingredient.ingredient;
-
-      if (ingredient.quantity) {
-        ingredientText += `: <span>${ingredient.quantity}`;
-
-        if (ingredient.unit) {
-          ingredientText += ` ${ingredient.unit}</span>`;
-        } else {
-          ingredientText += "</span>";
-        }
-      }
-
-      return `<li>${ingredientText}</li>`;
-    })
-    .join("");
+  const ingredientsList = displayIngredientLists(recipe);
 
   recipeCard.innerHTML = `
       <figcaption class="card__image-caption">
@@ -39,11 +22,34 @@ function createRecipeCard(recipe) {
       </article>
   `;
 
+  displayDescription(recipeCard);
+
+  return recipeCard;
+}
+
+function displayIngredientLists(recipe) {
+  return recipe.ingredients
+    .map((ingredient) => {
+      let ingredientText = ingredient.ingredient;
+      if (ingredient.quantity) {
+        ingredientText += `: <span>${ingredient.quantity}`;
+        if (ingredient.unit) {
+          ingredientText += ` ${ingredient.unit}</span>`;
+        } else {
+          ingredientText += "</span>";
+        }
+      }
+      return `<li>${ingredientText}</li>`;
+    })
+    .join("");
+}
+
+function displayDescription(recipeCard) {
   const descriptionParagraph = recipeCard.querySelector(".card__description");
 
   descriptionParagraph.addEventListener("click", () => {
     if (descriptionParagraph.style.height === "75px") {
-      descriptionParagraph.style.height = "375px"; 
+      descriptionParagraph.style.height = "375px";
       descriptionParagraph.style.width = "90%";
       descriptionParagraph.style.position = "absolute";
       descriptionParagraph.style.backgroundColor = "white";
@@ -52,18 +58,15 @@ function createRecipeCard(recipe) {
       descriptionParagraph.style.position = "relative";
     }
   });
-
-  return recipeCard;
 }
 
+// créer une fonction qui génère le contenu HTML de toutes les cartes de recettes mappées
 function renderRecipes(recipesList) {
   const container = document.querySelector(".cards__container");
   // Effacer le contenu existant dans le conteneur
   container.innerHTML = "";
-  // Parcourir les recettes et générer le contenu HTML
   recipesList.forEach((recipe) => {
     const recipeCard = createRecipeCard(recipe);
-    // Ajoutez d'autres éléments HTML pour afficher les autres données de la recette, si nécessaire
     container.appendChild(recipeCard);
   });
 }
