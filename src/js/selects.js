@@ -42,7 +42,7 @@ function createSelectBox(title, options) {
 
   return selectContainer;
 }
-
+// filter les options dans la select box
 function filterOptions(input, optionElements) {
   const filterValue = input.value.toLowerCase();
 
@@ -53,7 +53,6 @@ function filterOptions(input, optionElements) {
     optionElement.style.display = (filterValue === "" || optionMatches) ? "block" : "none"; // operateur ternaire
   });
 }
-
 //récupérer les options pour chaque select
 function getIngredientsOptions() {
   const options = [];
@@ -67,7 +66,7 @@ function getIngredientsOptions() {
 
   return arrayOptions;
 }
-
+// afficher le total de recettes en grandant l'orthographe du mot recette
 export function getTotalRecipes(recipes) {
   const totalRecipes = document.querySelector(".total-recipes");
   totalRecipes.textContent = `${recipes.length} recette${recipes.length > 1 ? 's' : ''}`;
