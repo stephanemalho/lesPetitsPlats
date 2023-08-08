@@ -50,24 +50,6 @@ function filterSelectOptions(input, optionElements) {
   });
 }
 
-// function filterLabelOption(elmList) {
-//   elmList.forEach(function (elm) {
-//     elm.addEventListener("click", function () {
-//       const label = this.closest(".select-container").querySelector("button").textContent;
-//       const filterValue = this.textContent;
-//       if (label === "Ingrédients") {
-//         selectedIngredients.push(filterValue);
-//       } else if (label === "Appareils") {
-//         selectedAppliance.push(filterValue);
-//       } else {
-//         selectedUstensils.push(filterValue);
-//       }
-//       createSelectedFilter(filterValue);
-//       applyFilters();
-//     });
-//   });
-// }
-
 function filterLabelOption(elmList) {
   elmList.forEach(function (elm) {
     elm.addEventListener("click", function () {
