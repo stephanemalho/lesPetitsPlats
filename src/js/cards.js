@@ -1,3 +1,5 @@
+import { noRecipe } from "./utils/utils";
+
 // créer une fonction qui génère le contenu HTML d'une carte de recette
 function createRecipeCard(recipe) {
   const recipeCard = document.createElement("figure");
@@ -69,13 +71,7 @@ function renderRecipes(recipesList) {
     const recipeCard = createRecipeCard(recipe);
     container.appendChild(recipeCard);
   });
-  if (recipesList.length === 0) {
-    container.innerHTML = `
-      <div class="no-recipe">
-        <p>Aucune recette</p>
-      </div>
-    `;
-  }
+  noRecipe(recipesList, container);
 }
 
 export { renderRecipes, createRecipeCard };
