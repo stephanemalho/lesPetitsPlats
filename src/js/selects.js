@@ -40,7 +40,6 @@ function createSelectBox(title, options) {
 
   const optionElements = optionsContainer.querySelectorAll(".option");
   filterOptionName(optionElements);
-  console.log(optionElements);
 
   input.addEventListener("input", function () {
     const updatedOptionElements = optionsContainer.querySelectorAll(".option");
@@ -297,7 +296,7 @@ function removeSelectedFilter(label) {
   applyFilters(); // Appliquer les filtres
 }
 
-function filterRecipes() {
+function filterRecipes() { // for -- while
   const searchText = searchInput.value.toLowerCase();
 
     // Vérifier si l'utilisateur a tapé au moins trois lettres
@@ -306,42 +305,49 @@ function filterRecipes() {
       applyGlobalFilters(recipes);
       return;
     }
-
-  const filteredRecipes = recipes.filter(function(recipe) {
-    const propertiesToCheck = [
+  const filteredRecipes = [];
+  for (var i = 0; i < recipes.length; i++) { // non optimisé for au lieu de forEach
+    var recipe = recipes[i];
+    var propertiesToCheck = [
       "name",       // Nom de la recette
       "appliance",  // Appareil de la recette
       "ustensils",  // Ustensiles de la recette
       "ingredients" // Ingrédients de la recette
     ];
 
-    for (var i = 0; i < propertiesToCheck.length; i++) {
-      var property = propertiesToCheck[i];
+    var isMatch = false;
+    for (var j = 0; j < propertiesToCheck.length; j++) {
+      var property = propertiesToCheck[j];
       var value = recipe[property];
 
-      if (typeof value === "string") {
-        if (value.toLowerCase().includes(searchText)) {
-          return true;
-        }
+      if (typeof value === "string" && value.toLowerCase().indexOf(searchText) !== -1) { // indexOf au lieu de includes
+        isMatch = true;
+        break;
       } else if (Array.isArray(value)) {
-        for (var j = 0; j < value.length; j++) {
-          var item = value[j];
-          if (typeof item === "string" && item.toLowerCase().includes(searchText)) {
-            return true;
+        for (var k = 0; k < value.length; k++) {
+          var item = value[k];
+          if (typeof item === "string" && item.toLowerCase().indexOf(searchText) !== -1) {
+            isMatch = true;
+            break;
           }
+        }
+        if (isMatch) {
+          break;
         }
       }
     }
 
-    return false;
-  });
+    if (isMatch) {
+      filteredRecipes.push(recipe);
+    }
+  }
 
   applyGlobalFilters(filteredRecipes);
 }
 
 function applyGlobalFilters(recipes) {
   let filteredRecipes = recipes.filter(function (recipe) {
-    // Vérifier si la recette correspond aux filtres d'ingrédients, d'ustensiles et d'appareil sélectionnés
+    //Vérifier si la recette correspond aux filtres d'ingrédients, d'ustensiles et d'appareil sélectionnés
     let ingredientsMatch = true;
     let ustensilsMatch = true;
     let applianceMatch = true;
@@ -350,23 +356,24 @@ function applyGlobalFilters(recipes) {
     if (selectedIngredients.length > 0) {
       ingredientsMatch = selectedIngredients.some(function (selectedIngredient) {
         return recipe.ingredients.some(function (ingredient) {
-          return ingredient.ingredient.toLowerCase().includes(selectedIngredient);
+          return ingredient.ingredient.toLowerCase().indexOf(selectedIngredient) !== -1; // indexOf au lieu de includes
         });
       });
     }
 
     if (selectedUstensils.length > 0) {
       ustensilsMatch = selectedUstensils.every(function (selectedUstensil) {
-        return recipe.ustensils.includes(selectedUstensil);
+        return recipe.ustensils.indexOf(selectedUstensil) !== -1;
       });
     }
 
     if (selectedAppliance.length > 0) {
-      applianceMatch = selectedAppliance.includes(recipe.appliance);
+      applianceMatch = selectedAppliance.indexOf(recipe.appliance) !== -1;
+
     }
 
     if (selectedDescription.length > 0) {
-      descriptionMatch = selectedDescription.includes(recipe.description);
+      descriptionMatch = selectedDescription.indexOf(recipe.description) !== -1;
     }
 
     return ingredientsMatch && ustensilsMatch && applianceMatch && descriptionMatch;
@@ -375,3 +382,4 @@ function applyGlobalFilters(recipes) {
   renderRecipes(filteredRecipes);
   getTotalRecipes(filteredRecipes);
 }
+
