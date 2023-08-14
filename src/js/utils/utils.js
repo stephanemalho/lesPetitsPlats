@@ -70,3 +70,13 @@ export function getTotalRecipes(recipes) {
   const totalRecipes = document.querySelector(".total-recipes");
   totalRecipes.textContent = `${recipes.length} recette${recipes.length > 1 ? 's' : ''}`;
 }
+
+export function noRecipe(array, container) {
+  if (array.length === 0) {
+    container.innerHTML = `
+    <div class="no-recipe">
+      <p>Aucune recette</p>
+    </div>
+  `;
+  }
+}

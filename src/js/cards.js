@@ -1,3 +1,5 @@
+import { noRecipe } from "./utils/utils";
+
 // créer une fonction qui génère le contenu HTML d'une carte de recette
 function createRecipeCard(recipe) {
   const recipeCard = document.createElement("figure");
@@ -69,6 +71,7 @@ function renderRecipes(recipesList) {
     const recipeCard = createRecipeCard(recipe);
     container.appendChild(recipeCard);
   });
+  noRecipe(recipesList, container);
 }
 
 export { renderRecipes, createRecipeCard };
