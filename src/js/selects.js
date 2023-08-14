@@ -71,15 +71,17 @@ function filterOptions(input, optionElements) {
   }
 }
 
-// afficher la liste des ingrédients
-function getIngredientsOptions() {
-  var options = [];
+export function getIngredientsOptions() {
+  const options = [];
 
-  recipes.forEach(function(recipe) {
-    recipe.ingredients.forEach(function(ingredient) {
-      options.push(ingredient.ingredient); // Conversion en minuscules
-    });
-  });
+  for (let i = 0; i < recipes.length; i++) {
+    const recipe = recipes[i];
+    for (let j = 0; j < recipe.ingredients.length; j++) {
+      const ingredient = recipe.ingredients[j].ingredient;
+      options.push(ingredient);
+    }
+  }
+
   const setOptions = new Set(options);
   const arrayOptions = Array.from(setOptions);
 
