@@ -69,6 +69,13 @@ function renderRecipes(recipesList) {
     const recipeCard = createRecipeCard(recipe);
     container.appendChild(recipeCard);
   });
+  if (recipesList.length === 0) {
+    container.innerHTML = `
+      <div class="no-recipe">
+        <p>Aucune recette</p>
+      </div>
+    `;
+  }
 }
 
 export { renderRecipes, createRecipeCard };
