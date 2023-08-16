@@ -13,7 +13,7 @@ function createRecipeCard(recipe) {
     var ingredientText = ingredient.ingredient;
 
     if (ingredient.quantity) {
-      ingredientText += ": ";
+      ingredientText += ": "+ ingredient.quantity;
 
       var quantitySpan = document.createElement("span");
       quantitySpan.textContent = ingredient.quantity;
