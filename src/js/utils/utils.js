@@ -1,4 +1,5 @@
 import recipes from "../../data/recipes";
+import { inputValues } from "../mainFilter";
 import { createSelectedFilter, removeSelectedFilter } from "../selects";
 
 export function hideSelectBox() {
@@ -75,7 +76,7 @@ export function noRecipe(array, container) {
   if (array.length === 0) {
     container.innerHTML = `
     <div class="no-recipe">
-      <p>Aucune recette</p>
+      <p>Aucune recette ne correspond à ${inputValues}</p>
     </div>
   `;
   }

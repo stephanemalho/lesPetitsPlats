@@ -5,6 +5,7 @@ import { getIngredientsOptions, getOptions, getTotalRecipes, toggleOptions, togg
 let selectedIngredients = [];
 let selectedUstensils = [];
 let selectedAppliance = [];
+export let inputValues = [];
 
 function createSelectBox(title, options) {
   const selectContainer = document.createElement("div");
@@ -55,6 +56,8 @@ function filterSelectOptions(input, optionElements) {
 
     optionElement.style.display = (filterValue === "" || optionMatches) ? "block" : "none"; // operateur ternaire
   });
+  // add input value to inputValues array
+  inputValues.push(filterValue);
 }
 
 function filterLabelOption(elmList) {
@@ -152,6 +155,6 @@ export function removeSelectedFilter(label) {
   selectedIngredients = selectedIngredients.filter((ingredient) => ingredient !== label);
   selectedUstensils = selectedUstensils.filter((ustensil) => ustensil !== label);
   selectedAppliance = selectedAppliance.filter((appliance) => appliance !== label);
-
+  
   applyFilters(); // Appliquer les filtres
 }
