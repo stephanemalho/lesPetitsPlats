@@ -10,6 +10,7 @@ let selectedDescription = [];
 let selectedIngredients = [];
 let selectedUstensils = [];
 let selectedAppliance = [];
+export let inputValues = [];
 
 export function filterRecipes() {
   const searchText = searchInput.value.toLowerCase();
@@ -53,6 +54,8 @@ function applyGlobalFilters(recipes) {
 
     return ingredientsMatch && ustensilsMatch && applianceMatch && descriptionMatch;
   });
+
+  inputValues = searchInput.value.split(','); // remove the , between the values
 
   renderRecipes(filteredRecipes);
   getTotalRecipes(filteredRecipes);
