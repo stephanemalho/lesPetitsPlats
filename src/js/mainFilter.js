@@ -1,6 +1,6 @@
 import { recipes } from '../data/recipes.js';
 import { renderRecipes } from './cards';
-import { getTotalRecipes, stringIncludes } from './utils/utils';
+import { getTotalRecipes, noRecipe, stringIncludes } from './utils/utils';
 
 const searchInput = document.getElementById('search');
 // Écouter l'événement d'entrée utilisateur dans l'input
@@ -34,6 +34,7 @@ export function filterRecipes() {
 
 
 function applyGlobalFilters(recipes) {
+  const container = document.querySelector(".cards__container");
   const filteredRecipes = recipes.filter(function(recipe) {
     const ingredientsMatch = selectedIngredients.length === 0 ||
       selectedIngredients.some(function(selectedIngredient) {
@@ -58,5 +59,6 @@ function applyGlobalFilters(recipes) {
   inputValues = searchInput.value.split(','); // remove the , between the values
 
   renderRecipes(filteredRecipes);
+  noRecipe(filteredRecipes, container, inputValues);
   getTotalRecipes(filteredRecipes);
 }
