@@ -1,6 +1,6 @@
 import { recipes } from "../data/recipes.js";
 import { renderRecipes } from "./cards.js";
-import { getIngredientsOptions, getOptions, getTotalRecipes, toggleOptions, toggleSelectedFilter } from "./utils/utils.js";
+import { getIngredientsOptions, getOptions, getTotalRecipes, noRecipe, toggleOptions, toggleSelectedFilter } from "./utils/utils.js";
 
 let selectedIngredients = [];
 let selectedUstensils = [];
@@ -38,6 +38,7 @@ function createSelectBox(title, options) {
     const updatedOptionElements = selectContainer.querySelectorAll(".option");
     filterSelectOptions(input, updatedOptionElements);
     input.value = "";
+    inputValues = [];
   });
 
   const optionElements = selectContainer.querySelectorAll(".option");
@@ -83,6 +84,7 @@ function filterLabelOption(elmList) {
 }
 
 function applyFilters() {
+  const container = document.querySelector(".cards__container");
   let filteredRecipes = recipes.filter(function (recipe) {
     let ingredientsMatch = selectedIngredients.length === 0 || recipe.ingredients.some(function (ingredient) {
     return selectedIngredients.includes(ingredient.ingredient);
@@ -98,6 +100,7 @@ function applyFilters() {
 
 
   renderRecipes(filteredRecipes);
+  noRecipe(filteredRecipes, container, inputValues);
   getTotalRecipes(filteredRecipes);
 }
 

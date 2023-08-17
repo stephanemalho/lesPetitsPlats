@@ -1,5 +1,4 @@
 import recipes from "../../data/recipes";
-import { inputValues } from "../mainFilter";
 import { createSelectedFilter, removeSelectedFilter } from "../selects";
 
 export function hideSelectBox() {
@@ -72,12 +71,15 @@ export function getTotalRecipes(recipes) {
   totalRecipes.textContent = `${recipes.length} recette${recipes.length > 1 ? 's' : ''}`;
 }
 
-export function noRecipe(array, container) {
+export function noRecipe(array, container, inputValues) {
   if (array.length === 0) {
-    container.innerHTML = `
-    <div class="no-recipe">
-      <p>Aucune recette ne correspond à ${inputValues}</p>
-    </div>
-  `;
+      const message = inputValues && inputValues.length > 0
+          ? `Aucune recette ne correspond à ${inputValues}`
+          : `Aucune recette ne correspond à vos filtres`;
+      container.innerHTML = `
+          <div class="no-recipe">
+              <p>${message}</p>
+          </div>
+      `;
   }
 }
