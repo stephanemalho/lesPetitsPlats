@@ -42,9 +42,9 @@ export function toggleOptions(button) {
   const searchIcon = selectContainer.querySelector("i.fa-search");
   
   if (selectContainer.classList.contains("open")) {
-    searchIcon.classList.remove("hidden"); // Cacher l'icône lorsque la select box est ouverte
+    searchIcon.classList.remove("hidden"); // hidden the search icon when the select box is open
   } else {
-    searchIcon.classList.add("hidden"); // Afficher l'icône lorsque la select box est fermée
+    searchIcon.classList.add("hidden"); // show the search icon when the select box is closed
   }
 }
 
@@ -65,7 +65,7 @@ export function stringIncludes(value, searchText) {
   return false;
 }
 
-// afficher le total de recettes en grandant l'orthographe du mot recette
+// show the total number of recipes with pliral or singular
 export function getTotalRecipes(recipes) {
   const totalRecipes = document.querySelector(".total-recipes");
   totalRecipes.textContent = `${recipes.length} recette${recipes.length > 1 ? 's' : ''}`;

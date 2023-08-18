@@ -3,7 +3,7 @@ import { renderRecipes } from './cards';
 import { getTotalRecipes, noRecipe, stringIncludes } from './utils/utils';
 
 const searchInput = document.getElementById('search');
-// Écouter l'événement d'entrée utilisateur dans l'input
+// listen to the user input event in the input
 searchInput.addEventListener('input', filterRecipes);
 
 let selectedDescription = [];
@@ -14,9 +14,9 @@ export let inputValues = [];
 
 export function filterRecipes() {
   const searchText = searchInput.value.toLowerCase();
-  // Vérifier si l'utilisateur a tapé au moins trois lettres
+  // check if the user has typed at least three letters
   if (searchText.length < 3) {
-    // Si moins de trois lettres ont été tapées, ne pas appliquer le filtrage
+    // If less than three letters have been typed, do not apply the filtering
     applyGlobalFilters(recipes);
     return;
   }
@@ -39,7 +39,7 @@ function applyGlobalFilters(recipes) {
     const ingredientsMatch = selectedIngredients.length === 0 ||
       selectedIngredients.some(function(selectedIngredient) {
         return recipe.ingredients.some(function(ingredient) {
-          return stringIncludes(ingredient.ingredient, selectedIngredient); // fonction qui remplace le toLowercase.includes 
+          return stringIncludes(ingredient.ingredient, selectedIngredient); // check if the ingredient is included in the recipe
         });
       });
     const ustensilsMatch = selectedUstensils.length === 0 ||
