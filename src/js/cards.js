@@ -1,5 +1,5 @@
 
-// créer une fonction qui génère le contenu HTML d'une carte de recette
+// fucntion that creates the HTML content of a recipe card
 function createRecipeCard(recipe) {
   const recipeCard = document.createElement("figure");
   recipeCard.classList.add("card__image-container");
@@ -55,16 +55,16 @@ function displayDescription(recipeCard) {
       descriptionParagraph.style.position = "absolute";
       descriptionParagraph.style.backgroundColor = "white";
     } else {
-      descriptionParagraph.style.height = "75px"; // Rétablir la hauteur limitée
+      descriptionParagraph.style.height = "75px"; // set the height to 75px
       descriptionParagraph.style.position = "relative";
     }
   });
 }
 
-// créer une fonction qui génère le contenu HTML de toutes les cartes de recettes mappées
+// create a function that generates the HTML content of all the mapped recipe cards
 function renderRecipes(recipesList) {
   const container = document.querySelector(".cards__container");
-  // Effacer le contenu existant dans le conteneur
+  // Empty the existing content in the container
   container.innerHTML = "";
   recipesList.forEach((recipe) => {
     const recipeCard = createRecipeCard(recipe);

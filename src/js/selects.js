@@ -47,7 +47,7 @@ function createSelectBox(title, options) {
   return selectContainer;
 }
 
-// filter les options dans la select box
+// filter the options in the select box
 function filterSelectOptions(input, optionElements) {
   const filterValue = input.value.toLowerCase();
 
@@ -129,7 +129,7 @@ export function createSelectedFilter(label) {
 
   const selectedFilter = document.createElement("div");
   selectedFilter.classList.add("selected-filter");
-  selectedFilter.classList.add("selected"); // Ajout de la classe "selected"
+  selectedFilter.classList.add("selected"); // add class "selected" to the selected filter
 
   selectedFilter.innerHTML = `
     <label>${label}</label>
@@ -149,15 +149,15 @@ export function removeSelectedFilter(label) {
   const selectedFilter = document.querySelectorAll(".selected-filter");
   selectedFilter.forEach(function (filter) {
     if (filter.textContent === label) {
-      filter.classList.remove("selected"); // Suppression de la classe "selected"
+      filter.classList.remove("selected"); // remove class "selected" to the selected filter
       filter.remove();
     }
   });
 
-  // Mettre à jour les tableaux de filtres
+  // update the selected filters arrays by removing the selected filter
   selectedIngredients = selectedIngredients.filter((ingredient) => ingredient !== label);
   selectedUstensils = selectedUstensils.filter((ustensil) => ustensil !== label);
   selectedAppliance = selectedAppliance.filter((appliance) => appliance !== label);
   
-  applyFilters(); // Appliquer les filtres
+  applyFilters(); // apply the filters
 }
