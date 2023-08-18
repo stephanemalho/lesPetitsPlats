@@ -7,10 +7,9 @@ let selectedAppliance = [];
 let selectedDescription = [];
 
 const searchInput = document.getElementById('search');
-// Écouter l'événement d'entrée utilisateur dans l'input
+// listen for input event on searchInput
 searchInput.addEventListener('input', filterRecipes);
 
-// créer les select box
 function createSelectBox(title, options) {
   var selectContainer = document.createElement("div");
   selectContainer.classList.add("select-container");
@@ -87,7 +86,7 @@ export function getIngredientsOptions() {
   return arrayOptions;
 }
 
-// afficher la liste des appareils
+// show the list of appliances
 function getApplianceOptions() {
     var options = [];
   
@@ -106,7 +105,7 @@ function getApplianceOptions() {
   
     return uniqueOptions;
   }
-  // afficher la liste des Ustenciles
+  // show the list of ustensils
   function getUstensilsOptions() {
     var options = [];
   
@@ -130,7 +129,7 @@ function getApplianceOptions() {
   
     return uniqueOptions;
   }
-// afficher le total des recettes trouvées en gardant la bonne orthographe
+// show the total number of recipes
 export function getTotalRecipes(recipes) {
   const totalRecipes = document.querySelector(".total-recipes");
   totalRecipes.textContent = `${recipes.length}`;
@@ -195,7 +194,7 @@ export function filterOptionName(elmList) {
 
 function applyFilters() {
   let filteredRecipes = recipes.filter(function (recipe) {
-    // Vérifier si la recette correspond aux filtres d'ingrédients, d'ustensiles et d'appareil sélectionnés
+    // check if recipe matches all filters
     let ingredientsMatch = true;
     let ustensilsMatch = true;
     let applianceMatch = true;
@@ -269,7 +268,7 @@ export function createSelectedFilter(label) {
   removeIcon.classList.add("fas", "fa-times");  
   removeButton.appendChild(removeIcon);
 
-  // Ajoute un gestionnaire d'événements au bouton de suppression
+  // add event listener to remove button
   removeButton.addEventListener("click", () => {
     selectedFilter.remove();
     removeSelectedFilter(label);
@@ -288,32 +287,31 @@ function removeSelectedFilter(label) {
     }
   });
 
-  // Mettre à jour les tableaux de filtres
+  // update selected filters
   selectedIngredients = selectedIngredients.filter((ingredient) => ingredient !== label);
   selectedUstensils = selectedUstensils.filter((ustensil) => ustensil !== label);
   selectedAppliance = selectedAppliance.filter((appliance) => appliance !== label);
 
-  applyFilters(); // Appliquer les filtres
+  applyFilters(); // apply filters
 }
 
-function filterRecipes() { // for -- while
+function filterRecipes() { 
   const searchText = searchInput.value.toLowerCase();
 
-    // Vérifier si l'utilisateur a tapé au moins trois lettres
+    // check if search text is less than 3 characters
     if (searchText.length < 3) {
-      // Si moins de trois lettres ont été tapées, ne pas appliquer le filtrage
       applyGlobalFilters(recipes);
       return;
     }
   const filteredRecipes = [];
-  for (var i = 0; i < recipes.length; i++) { // non optimisé for au lieu de forEach
+  for (var i = 0; i < recipes.length; i++) { // for less readable than forEach
     var recipe = recipes[i];
     var propertiesToCheck = [
-      "name",       // Nom de la recette
-      "appliance",  // Appareil de la recette
-      "ustensils",  // Ustensiles de la recette
-      "ingredients", // Ingrédients de la recette
-      "description" // Description de la recette
+      "name",       // name of the recipe
+      "appliance",  // Appliance of the recipe
+      "ustensils",  // Ustensils of the recipe
+      "ingredients", // Ingredients of the recipe
+      "description" // Description of the recipe
     ];
 
     var isMatch = false;
@@ -321,7 +319,7 @@ function filterRecipes() { // for -- while
       var property = propertiesToCheck[j];
       var value = recipe[property];
 
-      if (typeof value === "string" && value.toLowerCase().indexOf(searchText) !== -1) { // indexOf au lieu de includes
+      if (typeof value === "string" && value.toLowerCase().indexOf(searchText) !== -1) { // indexOf less readable than includes
         isMatch = true;
         break;
       } else if (Array.isArray(value)) {
@@ -349,7 +347,7 @@ function filterRecipes() { // for -- while
 function applyGlobalFilters(recipes) {
   const filteredRecipes = [];
   
-  for (var i = 0; i < recipes.length; i++) { // non optimisé for au lieu de forEach
+  for (var i = 0; i < recipes.length; i++) { 
     var recipe = recipes[i];
     
     var ingredientsMatch = true;

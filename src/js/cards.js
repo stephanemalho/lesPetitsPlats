@@ -2,10 +2,10 @@ function createRecipeCard(recipe) {
   var recipeCard = document.createElement("figure");
   recipeCard.classList.add("card__image-container");
 
-  var ingredientsList = document.createElement("ul"); // createElement moins lisible que innerHTML
-  ingredientsList.classList.add("card__tags"); // ajoute d'une ligne par class
+  var ingredientsList = document.createElement("ul"); // createElement less readable than template string
+  ingredientsList.classList.add("card__tags"); // add classList less readable than template string
 
-  for (var i = 0; i < recipe.ingredients.length; i++) { // boucle for moins lisible que forEach
+  for (var i = 0; i < recipe.ingredients.length; i++) { // for less readable than forEach
     var ingredient = recipe.ingredients[i];
 
     var ingredientItem = document.createElement("li");
@@ -67,7 +67,7 @@ function createRecipeCard(recipe) {
   var ingredientsHeading = document.createElement("h3");
   ingredientsHeading.textContent = "Ingrédients";
 
-  cardContent.appendChild(cardTitle); // appendchild moins lisible que template string
+  cardContent.appendChild(cardTitle); // appendchild less readable than template string
   cardContent.appendChild(cardTitleH3);
   cardContent.appendChild(cardDescription);
   cardContent.appendChild(ingredientsHeading);
@@ -81,10 +81,10 @@ function createRecipeCard(recipe) {
 }
 
 function renderRecipes(recipesList) {
-  var container = document.getElementsByClassName("cards__container")[0]; // selection par class moins performant que par querySelector
+  var container = document.getElementsByClassName("cards__container")[0]; // selection by class less readable than template string
   container.innerHTML = "";
   for (var i = 0; i < recipesList.length; i++) {
-    // boucle for plus performante que forEach mais moins lisible
+    // for less readable than forEach but could be more performant
     var recipe = recipesList[i];
     var recipeCard = createRecipeCard(recipe);
     container.appendChild(recipeCard);
